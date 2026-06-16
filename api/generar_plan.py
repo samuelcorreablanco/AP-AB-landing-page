@@ -19,6 +19,7 @@ import html
 import os
 import urllib.parse
 import urllib.request
+import traceback
 
 from openai import OpenAI
 
@@ -211,5 +212,6 @@ class handler(BaseHTTPRequestHandler):
             plan = generar(user_prompt)
             return self._send(200, {"status": "success", "plan": plan})
         except Exception as e:
-            print(f"[APPO] Error: {e}", flush=True)
-            return self._send(500, {"error": str(e)})
+            tb = traceback.format_exc()
+            print(f"[APPO] Error: {e}\n{tb}", flush=True)
+            return self._send(500, {"error": str(e), "trace": tb})
