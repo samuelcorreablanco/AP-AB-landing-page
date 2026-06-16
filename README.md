@@ -59,7 +59,12 @@ Para activarlo (en Vercel → Project → Settings → Environment Variables):
    - `RESEND_API_KEY` = tu API key de Resend
    - `NOTIFY_EMAIL` = el correo donde quieres recibir los avisos (ej. barrerojeronimo@gmail.com)
    - `FROM_EMAIL` = remitente. Para pruebas: `onboarding@resend.dev` (en producción, un dominio verificado en Resend)
+   - `DEEPSEEK_API_KEY` = tu API key de DeepSeek (ya la usa el cotizador; sirve para generar el **DRA**)
+   - `PLANNER_MODEL` = el modelo (ej. `deepseek-v4-pro`); es el mismo que usa el cotizador
 3. Redeploy.
+
+El correo incluye el **DRA** (Documento de Requerimientos y Arquitectura): concepto general,
+objetivo, funcionalidades clave, arquitectura propuesta y alcance inicial — generado a partir de la idea.
 
 > Nota 1: esto **solo funciona desplegado en Vercel** (o con `vercel dev`), no abriendo el HTML directo.
 > Nota 2: el "precio" enviado es por ahora "Por definir", porque aún no se estipuló. Cuando lo definas,
