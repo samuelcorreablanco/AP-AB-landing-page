@@ -1,0 +1,14 @@
+# Entornos Python locales (NO subir a GitHub/Vercel)
+APPO_Planner_Standalone/venv/
+**/venv/
+__pycache__/
+*.pyc
+
+# Secretos / variables de entorno locales
+.env
+**/.env
+
+# Sistema
+.DS_Store
+Thumbs.db
+.vercel

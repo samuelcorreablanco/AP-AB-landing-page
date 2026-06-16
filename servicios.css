@@ -1,0 +1,23 @@
+/* ===== Página Servicios ===== */
+body.servicios-page{height:auto;overflow-y:auto;overflow-x:hidden}
+
+.sv-top{justify-content:space-between;padding-right:clamp(20px,5vw,64px)}
+.back{padding:10px 18px;font-size:13px}
+
+.sv-main{padding:clamp(20px,4vh,48px) clamp(20px,5vw,64px) 10vh;max-width:1200px;margin:0 auto}
+.sv-head{margin-bottom:36px}
+.sv-tag{font-family:"Space Mono",monospace;font-weight:700;font-size:13px;letter-spacing:.08em}
+.sv-title{font-weight:900;font-size:clamp(48px,10vw,128px);letter-spacing:-.04em;line-height:.92;margin:8px 0 14px}
+.sv-lead{font-size:clamp(16px,2vw,22px);font-weight:600;max-width:720px;line-height:1.4}
+
+.sv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:40px}
+.sv-card{border:2px solid var(--ink);background:rgba(0,0,0,.04);padding:26px;display:flex;flex-direction:column}
+.sv-card .card-tag{font-family:"Space Mono",monospace;font-size:12px;font-weight:700;letter-spacing:.06em}
+.sv-card h2{font-size:clamp(26px,3vw,34px);font-weight:900;letter-spacing:-.02em;margin:12px 0 10px}
+.sv-card p{font-size:16px;font-weight:500;line-height:1.45}
+
+.sv-actions{display:flex;gap:14px;flex-wrap:wrap}
+
+@media (max-width:780px){
+  .sv-grid{grid-template-columns:1fr}
+}

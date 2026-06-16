@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nuestros proyectos — Ap-Ab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="proceso.css" />
+</head>
+<body class="proceso">
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="topbar pr-top">
+    <a class="brand" href="index.html">AP-AB</a>
+    <a class="btn btn-ghost back" href="index.html">← Inicio</a>
+  </header>
+
+  <section class="gracias">
+    <div class="gracias-hero">
+      <h1 class="gracias-typed" id="graciasMsg" hidden></h1>
+      <h1 class="gracias-default" id="graciasTitle">Nuestros<br />proyectos.</h1>
+      <p class="gracias-sub">Esto es parte de lo que hemos construido en Ap-Ab. Desliza e interactúa con cada uno.</p>
+      <span class="scroll-cue">↓ DESLIZA ↓</span>
+    </div>
+
+    <div class="gallery">
+      <h2 class="gallery-title">Nuestros proyectos</h2>
+      <div class="gallery-grid" id="galleryGrid"><!-- se llena con JS --></div>
+    </div>
+  </section>
+
+  <script src="projects.js"></script>
+  <script>
+    // El mensaje de "gracias" (animado tipo terminal) solo si se llega desde el envío del correo
+    if (new URLSearchParams(location.search).get("from") === "lead") {
+      const title = document.getElementById("graciasTitle");
+      const sub = document.querySelector(".gracias-sub");
+      const msg = document.getElementById("graciasMsg");
+      title.hidden = true;
+      if (sub) sub.hidden = true;
+      msg.hidden = false;
+
+      const text = "> Nos pondremos en contacto contigo_";
+      let i = 0;
+      const caret = '<span class="caret">▋</span>';
+      (function type() {
+        msg.innerHTML = text.slice(0, i) + caret;
+        if (i < text.length) { i++; setTimeout(type, 55); }
+      })();
+    }
+
+    const grid = document.getElementById("galleryGrid");
+    const projects = (window.PROJECTS || []);
+    if (!projects.length) {
+      grid.innerHTML = '<div class="project-card empty">Próximamente: aquí podrás interactuar con nuestras apps.</div>';
+    } else {
+      grid.innerHTML = projects.map(p => `
+        <div class="project-card">
+          <div class="project-head"><b>${p.nombre || "Proyecto"}</b><span>${p.tag || ""}</span></div>
+          <iframe class="project-frame" src="${p.url}" loading="lazy"
+            sandbox="allow-scripts allow-same-origin allow-forms allow-popups" title="${p.nombre || "Proyecto"}"></iframe>
+        </div>
+      `).join("");
+    }
+  </script>
+</body>
+</html>

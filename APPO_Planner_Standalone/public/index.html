@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APPO Planner Standalone - SPA</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div id="app-container">
+        <!-- Fase 1, Vista 1: Ingreso del requerimiento -->
+        <section id="view-input" class="view active">
+            <div class="glass-panel">
+                <h1 class="neon-text blue-accent">Inicializar APPO Planner</h1>
+                <p>Ingrese los requerimientos de la nueva arquitectura:</p>
+                <textarea id="user-prompt" placeholder="Describa el requerimiento detalladamente aquí..." rows="6"></textarea>
+                <button id="btn-submit" class="neon-btn green-accent">Generar Plan DRA</button>
+            </div>
+        </section>
+
+        <!-- Fase 1, Vista 2: Pantalla de carga inmersiva -->
+        <section id="view-loading" class="view">
+            <div class="glass-panel text-center">
+                <h2 class="neon-text blue-accent">Procesando Arquitectura</h2>
+                <div class="terminal-loader">
+                    <span class="text">Analizando requerimientos</span><span class="cursor blinking">_</span>
+                </div>
+                <div class="loader-spinner neon-spinner"></div>
+            </div>
+        </section>
+
+        <!-- Fase 1, Vista 3: Panel del formulario dinámico (DRA) -->
+        <section id="view-dra" class="view">
+            <div class="glass-panel">
+                <h2 class="neon-text green-accent">Documento de Requerimientos y Arquitectura (DRA)</h2>
+                <p>Revise y edite los atributos generados por el planeador.</p>
+                <div id="dra-dynamic-fields" class="dynamic-form">
+                    <!-- Los campos dinámicos se renderizarán aquí -->
+                </div>
+                <div class="actions">
+                    <button id="btn-save" class="neon-btn blue-accent">Guardar en masterSummary</button>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <script src="js/app.js"></script>
+</body>
+</html>

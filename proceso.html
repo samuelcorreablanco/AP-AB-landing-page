@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nuestro proceso — Ap-Ab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="proceso.css" />
+</head>
+<body class="proceso">
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="topbar pr-top">
+    <a class="brand" href="index.html">AP-AB</a>
+    <a class="btn btn-ghost back" href="index.html">← Volver</a>
+  </header>
+
+  <div class="proceso-head">
+    <span class="proceso-tag">02 / Cómo trabajamos</span>
+    <h1 class="proceso-title">De tu idea a tu producto, en 5 pasos</h1>
+  </div>
+
+  <main class="proceso-steps">
+    <article class="proceso-step">
+      <span class="step-num">PASO 01</span>
+      <h3>Cuéntanos tu idea</h3>
+      <p>Nos describes qué necesitas. Escuchamos, preguntamos y entendemos el alcance real.</p>
+    </article>
+    <article class="proceso-step">
+      <span class="step-num">PASO 02</span>
+      <h3>Cotización clara</h3>
+      <p>Te damos un precio transparente, comparado con el mercado y sin letra pequeña.</p>
+    </article>
+    <article class="proceso-step">
+      <span class="step-num">PASO 03</span>
+      <h3>20% de anticipo</h3>
+      <p>Arrancamos con solo el 20%. El resto lo pagas al final: tu riesgo es mínimo.</p>
+    </article>
+    <article class="proceso-step">
+      <span class="step-num">PASO 04</span>
+      <h3>Desarrollo abierto</h3>
+      <p>Construimos mostrándote avances constantes. Siempre sabes en qué vamos.</p>
+    </article>
+    <article class="proceso-step">
+      <span class="step-num">PASO 05</span>
+      <h3>Entrega + 80%</h3>
+      <p>Recibes tu producto funcionando. Solo entonces pagas el 80% restante.</p>
+    </article>
+    <article class="proceso-step proceso-final">
+      <span class="step-num">TU COTIZACIÓN</span>
+      <h3 id="ideaTitle">Resumen de tu cotización</h3>
+      <div class="price-grid">
+        <div class="price-card">
+          <span class="card-tag">INVERSIÓN ESTIMADA</span>
+          <h2 class="price-value" id="precioValor">Precio</h2>
+          <p>Por definir — lo calcularemos según el alcance de tu idea.</p>
+        </div>
+        <div class="price-card">
+          <span class="card-tag">DÍA DE ENTREGA</span>
+          <h2 class="price-value" id="tiempoValor">Tiempo de entrega estimado</h2>
+          <p>Por definir — depende del tamaño del proyecto.</p>
+        </div>
+      </div>
+      <form class="start-form" id="startForm" onsubmit="return false">
+        <input type="email" id="userEmail" placeholder="Tu correo electrónico" required />
+        <button class="btn btn-solid" type="button" id="startBtn">Empecemos →</button>
+      </form>
+      <p class="form-msg" id="startMsg"></p>
+      <p class="proceso-note"><span class="dot"></span><b>Pagas el 80% solo al entregar.</b> Empiezas con apenas el 20%.</p>
+    </article>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="projects.js"></script>
+  <script>
+    // ---- Lo crítico primero: el botón siempre navega ----
+    const startBtn = document.getElementById("startBtn");
+    const emailEl = document.getElementById("userEmail");
+    const msg = document.getElementById("startMsg");
+
+    // Idea escrita en el cotizador
+    let idea = "";
+    try {
+      idea = (sessionStorage.getItem("apab_idea") || "").trim();
+      const t = document.getElementById("ideaTitle");
+      if (idea && t) t.textContent = "Tu cotización: " + (idea.length > 70 ? idea.slice(0, 70) + "…" : idea);
+    } catch (e) {}
+
+    async function enviar() {
+      const email = (emailEl.value || "").trim();
+      if (!emailEl.checkValidity()) { emailEl.reportValidity(); return; }
+      startBtn.disabled = true;
+      if (msg) msg.textContent = "Enviando…";
+
+      const precio = (document.getElementById("precioValor")?.textContent || "Por definir").trim();
+      const tiempo = (document.getElementById("tiempoValor")?.textContent || "Por definir").trim();
+
+      // Guardar el lead en Supabase (si está configurado), sin bloquear la navegación
+      try {
+        if (window.supabase && window.SUPABASE_URL && !String(window.SUPABASE_URL).includes("TU-PROYECTO")) {
+          const sb = window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
+          await sb.from("leads").insert([{ email, idea: idea || null }]);
+        }
+      } catch (err) {
+        console.error("No se pudo guardar el lead:", err);
+      }
+
+      // Enviar el correo de aviso (función serverless de Vercel)
+      try {
+        await fetch("/api/send-lead", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, idea, precio, tiempo }),
+        });
+      } catch (err) {
+        console.error("No se pudo enviar el correo:", err);
+      }
+
+      window.location.assign("proyectos.html?from=lead");
+    }
+
+    startBtn.addEventListener("click", enviar);
+  </script>
+</body>
+</html>

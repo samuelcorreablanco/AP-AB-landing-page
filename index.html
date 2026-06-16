@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ap-Ab — Software a medida con IA · Bogotá</title>
+  <meta name="description" content="Ap-Ab construye software a medida con IA. 50% por debajo del mercado, código 100% tuyo, fundado por ingenieros de Los Andes." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="bigmark" aria-hidden="true">AB</div>
+
+  <!-- ===== HEADER / NAV ===== -->
+  <header class="topbar">
+    <a class="brand" href="index.html">AP-AB</a>
+    <nav class="tabs" id="tabs">
+      <button class="tab is-active" data-tab="inicio">Inicio</button>
+      <a class="tab" href="servicios.html">Servicios</a>
+      <div class="tab-group">
+        <button class="tab" data-tab="nosotros">Nosotros ▾</button>
+        <div class="subtabs">
+          <a href="proyectos.html">Nuestros proyectos</a>
+        </div>
+      </div>
+      <a class="tab cta" href="cotizador.html">Cotización</a>
+    </nav>
+    <button class="menu-toggle" id="menuToggle" aria-label="Menú">≡</button>
+  </header>
+
+  <main class="stage">
+
+    <!-- ===== INICIO ===== -->
+    <section class="panel is-active" id="inicio">
+      <div class="hero">
+        <h1 class="hero-title">
+          Construimos software.<br />
+          Y el software que<br />
+          <span class="accent">construye software.</span>
+        </h1>
+        <div class="hero-actions">
+          <a class="btn btn-solid" href="cotizador.html">Cotización gratis</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== NOSOTROS ===== -->
+    <section class="panel" id="nosotros">
+      <div class="panel-inner">
+        <h2 class="panel-title">Nosotros</h2>
+        <p class="lead">
+          Somos <b>Ap-Ab</b>, una compañía de software en Bogotá fundada por ingenieros
+          de la Universidad de Los Andes. Creemos en precios transparentes, progreso
+          constante y en que el código que pagas, es tuyo.
+        </p>
+        <div class="stats">
+          <div class="stat"><b>~50%</b><span>bajo el mercado</span></div>
+          <div class="stat"><b>20/80</b><span>pago: inicio / entrega</span></div>
+          <div class="stat"><b>24h</b><span>tiempo de respuesta</span></div>
+          <div class="stat"><b>100%</b><span>propiedad del código</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CONTACTO / COTIZACIÓN ===== -->
+    <section class="panel" id="contacto">
+      <div class="panel-inner contact-grid">
+        <div>
+          <h2 class="panel-title">Cotización gratis</h2>
+          <p class="lead">Cuéntanos tu idea. Respondemos en menos de 24 horas.</p>
+          <div class="direct">
+            <a class="btn btn-solid" id="waBtn" href="https://wa.me/573185990793" target="_blank" rel="noopener">WhatsApp +57 318 599 0793</a>
+            <a class="btn btn-ghost" href="mailto:abbiappo8@gmail.com">abbiappo8@gmail.com</a>
+          </div>
+        </div>
+        <form id="quoteForm" class="form">
+          <input name="name" type="text" placeholder="Tu nombre" required />
+          <input name="email" type="email" placeholder="Correo electrónico" required />
+          <input name="company" type="text" placeholder="Empresa (opcional)" />
+          <textarea name="message" rows="3" placeholder="¿Qué quieres construir?" required></textarea>
+          <button class="btn btn-solid" type="submit" id="submitBtn">Enviar cotización</button>
+          <p class="form-msg" id="formMsg"></p>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+      <span>IA INTEGRADA</span><span>•</span><span>CÓDIGO 100% TUYO</span><span>•</span>
+      <span>PRECIOS TRANSPARENTES</span><span>•</span><span>BOGOTÁ · COLOMBIA</span><span>•</span>
+      <span>IA INTEGRADA</span><span>•</span><span>CÓDIGO 100% TUYO</span><span>•</span>
+      <span>PRECIOS TRANSPARENTES</span><span>•</span><span>BOGOTÁ · COLOMBIA</span><span>•</span>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

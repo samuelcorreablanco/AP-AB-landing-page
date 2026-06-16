@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cotizador — Ap-Ab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="cotizador.css" />
+</head>
+<body class="cotizador">
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="topbar cz-top">
+    <a class="brand" href="index.html">AP-AB</a>
+    <div class="cz-top-right">
+      <span class="cz-brand">Cotizador APPO</span>
+      <a class="btn btn-ghost back" href="index.html">← Volver</a>
+    </div>
+  </header>
+
+  <!-- ===== SPLIT: idea / render ===== -->
+  <section class="split">
+    <div class="split-half input-half">
+      <span class="half-tag">01 — TU IDEA</span>
+      <h1 class="cz-h1">Describe tu idea</h1>
+      <textarea id="ideaInput" placeholder="Ej: Una app para que mi restaurante reciba pedidos a domicilio, con menú, carrito y pago en línea..."></textarea>
+      <button class="btn btn-solid cz-gen" id="genBtn">Renderizar con APPO</button>
+      <p class="cz-hint">El agente APPO (IA) generará un render básico de tu idea. (Ctrl+Enter)</p>
+    </div>
+
+    <div class="split-half render-half">
+      <span class="half-tag">02 — RENDER</span>
+      <div class="style-picker" id="stylePicker">
+        <button data-theme="t-minimal" class="is-sel">Minimal</button>
+        <button data-theme="t-dark">Dark</button>
+        <button data-theme="t-ocean">Ocean</button>
+        <button data-theme="t-forest">Forest</button>
+        <button data-theme="t-candy">Candy</button>
+        <button data-theme="t-neon">Neon</button>
+        <button data-theme="t-terminal">Terminal</button>
+        <button data-theme="t-paper">Paper</button>
+        <button data-theme="t-custom" class="custom-btn">Custom +</button>
+      </div>
+
+      <div class="custom-panel" id="customPanel" hidden>
+        <div class="cp-grid">
+          <label>Fondo<input type="color" data-var="--t-bg" value="#ffffff"></label>
+          <label>Texto<input type="color" data-var="--t-fg" value="#111111"></label>
+          <label>Título<input type="color" data-var="--t-title" value="#111111"></label>
+          <label>Acento<input type="color" data-var="--t-accent" value="#111111"></label>
+          <label>Texto acento<input type="color" data-var="--t-accent-fg" value="#ffffff"></label>
+          <label>Borde<input type="color" data-var="--t-border" value="#111111"></label>
+          <label>Tarjeta<input type="color" data-var="--t-card" value="#ffffff"></label>
+          <label>Barra<input type="color" data-var="--t-bar" value="#111111"></label>
+          <label>Botón fondo<input type="color" data-var="--t-cta-bg" value="#111111"></label>
+          <label>Botón texto<input type="color" data-var="--t-cta-fg" value="#ffffff"></label>
+        </div>
+        <div class="cp-row">
+          <label>Fuente
+            <select data-var="--t-font" id="cpFont">
+              <option value="'Archivo',sans-serif">Archivo</option>
+              <option value="'Space Mono',monospace">Space Mono</option>
+              <option value="Georgia,serif">Georgia (serif)</option>
+              <option value="'Courier New',monospace">Courier</option>
+              <option value="system-ui,sans-serif">Sistema</option>
+            </select>
+          </label>
+          <label>Bordes redondeados
+            <input type="range" data-var="--t-radius" min="0" max="24" value="0" id="cpRadius">
+          </label>
+          <label>Tamaño base
+            <input type="range" data-var="--t-base" min="13" max="22" value="16" id="cpBase">
+          </label>
+        </div>
+      </div>
+
+      <div class="browser t-minimal" id="browser">
+        <div class="browser-bar">
+          <span></span><span></span><span></span>
+          <em id="renderUrl">tu-proyecto.app</em>
+        </div>
+        <div class="browser-body" id="renderBody">
+          <div class="render-empty">Tu idea aparecerá aquí</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="scroll-cue">↓ DESLIZA PARA VER PRECIO Y TIEMPO ↓</div>
+
+  <!-- ===== PRECIO / TIEMPO ===== -->
+  <section class="pricing">
+    <div class="price-grid">
+      <div class="price-card">
+        <span class="card-tag">INVERSIÓN ESTIMADA</span>
+        <h2 class="price-value">Precio</h2>
+        <p>Por definir — lo calcularemos según el alcance de tu idea.</p>
+      </div>
+      <div class="price-card">
+        <span class="card-tag">ENTREGA ESTIMADA</span>
+        <h2 class="price-value">Tiempo de entrega estimado</h2>
+        <p>Por definir — depende del tamaño del proyecto.</p>
+      </div>
+    </div>
+    <a class="btn btn-solid cz-final" href="proceso.html" id="finalCta">Continuar →</a>
+  </section>
+
+  <script src="cotizador.js"></script>
+</body>
+</html>
