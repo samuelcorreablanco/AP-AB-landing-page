@@ -33,7 +33,7 @@ body{
 
 /* ===== TOPBAR ===== */
 .topbar{
-  position:relative;z-index:5;
+  position:relative;z-index:40;
   display:flex;align-items:center;justify-content:space-between;
   padding:22px clamp(20px,5vw,64px);
   padding-right:max(clamp(20px,5vw,64px),74px);
@@ -83,12 +83,13 @@ body{
   background:var(--ink);padding:6px;min-width:200px;
   display:none;flex-direction:column;
 }
-.tab-group:hover .subtabs,.tab-group:focus-within .subtabs{display:flex}
-.subtabs a{
+.tab-group:hover .subtabs,.tab-group:focus-within .subtabs,.tab-group.open .subtabs{display:flex}
+.subtabs a,.subtabs .subtab{
   font-family:"Space Mono",monospace;font-weight:700;font-size:13px;letter-spacing:.02em;
   text-transform:uppercase;color:var(--paper);text-decoration:none;padding:10px 12px;white-space:nowrap;
+  background:none;border:0;cursor:pointer;text-align:left;
 }
-.subtabs a:hover{background:rgba(255,255,255,.16)}
+.subtabs a:hover,.subtabs .subtab:hover{background:rgba(255,255,255,.16)}
 
 /* ===== STAGE / PANELS ===== */
 .stage{position:relative;z-index:5;flex:1;min-height:0;display:flex}
@@ -143,6 +144,24 @@ body{
 .steps li{font-family:"Space Mono",monospace;font-weight:700;font-size:13px;border:2px solid var(--ink);padding:8px 12px}
 .steps b{margin-right:6px}
 
+/* ===== EQUIPO ===== */
+/* El panel "Quiénes somos" puede ser alto: que pueda hacer scroll dentro del stage */
+#nosotros{align-items:flex-start;overflow-y:auto;
+  padding-top:clamp(20px,4vh,48px);padding-bottom:clamp(20px,5vh,56px)}
+.team-title{font-weight:900;font-size:clamp(22px,3vw,32px);letter-spacing:-.02em;margin:40px 0 18px}
+.team{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px}
+.member{border:2px solid var(--ink);background:rgba(0,0,0,.04);padding:16px;
+  display:flex;flex-direction:row;align-items:center;gap:14px}
+.member-photo{flex:0 0 auto;width:120px;height:120px;aspect-ratio:1;object-fit:cover;display:block;
+  border:2px solid var(--ink);background:var(--ink)}
+.member-photo-ph{color:var(--paper);font-family:"Archivo",sans-serif;font-weight:900;
+  font-size:42px;display:flex;align-items:center;justify-content:center;letter-spacing:.02em}
+.member-info{display:flex;flex-direction:column;gap:4px;min-width:0}
+.member h3{font-size:18px;font-weight:800;margin:0;line-height:1.1}
+.member-role{font-family:"Space Mono",monospace;font-size:12px;font-weight:700;
+  letter-spacing:.06em;text-transform:uppercase;opacity:.8}
+.member-edu{font-size:14px;font-weight:500;line-height:1.35}
+
 /* ===== STATS ===== */
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:34px}
 .stat{border-top:3px solid var(--ink);padding-top:12px}
@@ -195,11 +214,12 @@ body{
   .tab.is-active{background:rgba(255,255,255,.18)}
   .tab.cta{clip-path:none;background:var(--paper);color:var(--ink);text-align:center;margin-top:4px}
   .tab-group{flex-direction:column;align-items:stretch;width:100%}
-  .subtabs{position:static;display:flex;background:rgba(255,255,255,.06);padding:2px 0;min-width:0;border-radius:2px}
-  .subtabs a{color:var(--paper);opacity:.9;padding:13px 16px;font-size:15px}
-  .subtabs a:active{background:rgba(255,255,255,.14)}
+  .subtabs{position:static;display:none;background:rgba(255,255,255,.06);padding:2px 0;min-width:0;border-radius:2px}
+  .subtabs a,.subtabs .subtab{color:var(--paper);opacity:.9;padding:13px 16px;font-size:15px;width:100%}
+  .subtabs a:active,.subtabs .subtab:active{background:rgba(255,255,255,.14)}
   .cols{grid-template-columns:1fr}
   .stats{grid-template-columns:1fr 1fr}
+  .team{grid-template-columns:1fr}
   .contact-grid{grid-template-columns:1fr}
   .form{margin:0}
   .ticker{display:none}

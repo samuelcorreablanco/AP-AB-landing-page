@@ -21,9 +21,10 @@
     <nav class="tabs" id="tabs">
       <button class="tab is-active" data-tab="inicio">Inicio</button>
       <a class="tab" href="servicios.html">Servicios</a>
-      <div class="tab-group">
-        <button class="tab" data-tab="nosotros">Nosotros ▾</button>
+      <div class="tab-group" id="nosotrosGroup">
+        <button class="tab" id="nosotrosToggle" aria-haspopup="true" aria-expanded="false">Nosotros ▾</button>
         <div class="subtabs">
+          <button class="subtab" data-tab="nosotros">Quiénes somos</button>
           <a href="proyectos.html">Nuestros proyectos</a>
         </div>
       </div>
@@ -50,10 +51,10 @@
       </div>
     </section>
 
-    <!-- ===== NOSOTROS ===== -->
+    <!-- ===== QUIÉNES SOMOS ===== -->
     <section class="panel" id="nosotros">
       <div class="panel-inner">
-        <h2 class="panel-title">Nosotros</h2>
+        <h2 class="panel-title">Quiénes somos</h2>
         <p class="lead">
           Somos <b>Ap-Ab</b>, una compañía de software en Bogotá fundada por ingenieros
           de la Universidad de Los Andes. Creemos en precios transparentes, progreso
@@ -64,6 +65,36 @@
           <div class="stat"><b>20/80</b><span>pago: inicio / entrega</span></div>
           <div class="stat"><b>24h</b><span>tiempo de respuesta</span></div>
           <div class="stat"><b>100%</b><span>propiedad del código</span></div>
+        </div>
+
+        <!-- Equipo. EDITAR: nombre, rol, educación y la foto (assets/equipo/*.jpg).
+             Si una foto falta, se muestra un recuadro con las iniciales (data-initials). -->
+        <h3 class="team-title">El equipo</h3>
+        <div class="team">
+          <article class="member">
+            <img class="member-photo" src="assets/equipo/ceo.jpg" alt="Foto de Nombre del CEO" data-initials="AB" />
+            <div class="member-info">
+              <h3>Nombre del CEO</h3>
+              <p class="member-role">CEO</p>
+              <p class="member-edu">Ingeniería · Universidad de Los Andes</p>
+            </div>
+          </article>
+          <article class="member">
+            <img class="member-photo" src="assets/equipo/cofounder-1.jpg" alt="Foto de Nombre del Co-founder 1" data-initials="AP" />
+            <div class="member-info">
+              <h3>Nombre del Co-founder</h3>
+              <p class="member-role">Co-founder</p>
+              <p class="member-edu">Ingeniería · Universidad de Los Andes</p>
+            </div>
+          </article>
+          <article class="member">
+            <img class="member-photo" src="assets/equipo/cofounder-2.jpg" alt="Foto de Nombre del Co-founder 2" data-initials="AB" />
+            <div class="member-info">
+              <h3>Nombre del Co-founder</h3>
+              <p class="member-role">Co-founder</p>
+              <p class="member-edu">Ingeniería · Universidad de Los Andes</p>
+            </div>
+          </article>
         </div>
       </div>
     </section>
@@ -101,8 +132,10 @@
     </div>
   </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="config.js"></script>
-  <script src="app.js"></script>
+  <!-- config + app cargan ya (defer, no bloquean); Supabase carga aparte (async) y
+       NO retrasa el menú/nav. El form usa Supabase si ya cargó, si no, WhatsApp. -->
+  <script src="config.js" defer></script>
+  <script src="app.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" async></script>
 </body>
 </html>

@@ -17,6 +17,7 @@ function activate(id) {
     t.classList.toggle("is-active", t.dataset.tab === id)
   );
   closeMenu();
+  closeNosotros();
 }
 
 tabs.forEach(el => {
@@ -27,6 +28,34 @@ tabs.forEach(el => {
 // Cerrar el menú al tocar cualquier enlace de la nav (Servicios, Cotización, subtabs)
 tabsNav?.querySelectorAll("a").forEach(a => a.addEventListener("click", closeMenu));
 
+// "Nosotros" NO navega: solo despliega/oculta sus sub-ítems
+const nosotrosGroup = document.getElementById("nosotrosGroup");
+const nosotrosToggle = document.getElementById("nosotrosToggle");
+nosotrosToggle?.addEventListener("click", (e) => {
+  e.stopPropagation();
+  const open = nosotrosGroup.classList.toggle("open");
+  nosotrosToggle.setAttribute("aria-expanded", open ? "true" : "false");
+});
+function closeNosotros() {
+  nosotrosGroup?.classList.remove("open");
+  nosotrosToggle?.setAttribute("aria-expanded", "false");
+}
+
+// Foto del equipo: si una imagen no existe aún, mostrar recuadro con iniciales
+function memberFallback(img) {
+  if (!img.parentNode) return;
+  const ph = document.createElement("div");
+  ph.className = "member-photo member-photo-ph";
+  ph.textContent = img.dataset.initials || "AB";
+  ph.setAttribute("aria-label", img.alt || "");
+  img.replaceWith(ph);
+}
+document.querySelectorAll(".member-photo").forEach(img => {
+  img.addEventListener("error", () => memberFallback(img));
+  // Por si la imagen ya falló antes de enganchar el listener (scripts con defer)
+  if (img.complete && img.naturalWidth === 0) memberFallback(img);
+});
+
 // Abrir/cerrar con el botón hamburguesa
 menuToggle?.addEventListener("click", (e) => {
   e.stopPropagation();
@@ -35,15 +64,22 @@ menuToggle?.addEventListener("click", (e) => {
 
 // Cerrar al tocar fuera del menú o con Escape
 document.addEventListener("click", (e) => {
+  if (nosotrosGroup && !nosotrosGroup.contains(e.target)) closeNosotros();
   if (!tabsNav.classList.contains("open")) return;
   if (!tabsNav.contains(e.target) && !menuToggle.contains(e.target)) closeMenu();
 });
-document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeMenu(); });
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") { closeMenu(); closeNosotros(); }
+});
 
 // ===== Supabase (opcional) =====
-let supabase = null;
-if (window.supabase && window.SUPABASE_URL && !window.SUPABASE_URL.includes("TU-PROYECTO")) {
-  supabase = window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
+// Se resuelve en el momento del envío, no al cargar: así el menú/nav funcionan
+// aunque el CDN de Supabase aún no haya cargado (o esté lento/bloqueado).
+function getSupabase() {
+  if (window.supabase && window.SUPABASE_URL && !window.SUPABASE_URL.includes("TU-PROYECTO")) {
+    return window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
+  }
+  return null;
 }
 
 // ===== Formulario de cotización =====
@@ -59,6 +95,7 @@ form.addEventListener("submit", async (e) => {
   msg.textContent = "Enviando…";
 
   try {
+    const supabase = getSupabase();
     if (supabase) {
       const { error } = await supabase.from("quotes").insert([{
         name: data.name,

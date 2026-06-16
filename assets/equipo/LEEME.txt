@@ -1,0 +1,15 @@
+FOTOS DEL EQUIPO (Quiénes somos)
+================================
+
+Pon aquí las 3 fotos con EXACTAMENTE estos nombres:
+
+  ceo.jpg          -> foto del CEO
+  cofounder-1.jpg  -> foto del primer co-founder
+  cofounder-2.jpg  -> foto del segundo co-founder
+
+- Cuadradas (1:1) se ven mejor. Sugerido: 600x600 px o más.
+- Pueden ser .jpg o .png (si usas .png, cambia la extensión en index.html).
+- Mientras no estén las fotos, la tarjeta muestra un recuadro con las iniciales.
+
+Los nombres, el rol y la educación se editan en index.html,
+en la sección <!-- ===== QUIÉNES SOMOS ===== --> (busca class="team").

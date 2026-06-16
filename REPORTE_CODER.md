@@ -5,6 +5,33 @@
 
 ---
 
+## TAREA 4 — FIX: el menú móvil no se desplegaba (DOS causas encadenadas)
+
+**Síntoma:** en móvil/ventana angosta, tocar la hamburguesa "no desplegaba nada".
+
+**Causa 1 (principal):** `app.js` (el que activa el menú/nav) cargaba **después** del
+`<script>` de Supabase del CDN, al final del body. Los scripts corren en orden, así que
+`app.js` no se ejecutaba hasta que terminara de descargar Supabase desde internet. Con
+conexión lenta o el CDN bloqueado, `app.js` nunca corría → el botón no tenía handler →
+tocar las 3 rayas no hacía nada. (Reproducido con captura: online, `app.js` no corría.)
+
+**Causa 2:** aunque el menú abriera, `.topbar` tenía `z-index:5` (crea stacking context)
+y el `.stage` también `z-index:5` (va después en el HTML) → tapaba el menú fixed.
+
+**Fix:**
+- `index.html`: `config.js` y `app.js` ahora con `defer` (corren tras parsear, sin
+  bloquear y sin esperar al CDN); Supabase pasa a `async` (carga aparte).
+- `app.js`: el cliente de Supabase se crea al ENVIAR el formulario (`getSupabase()`), no
+  al cargar. Así el menú/nav no dependen de que el CDN haya cargado. El form sigue igual
+  (Supabase si está, si no WhatsApp).
+- `styles.css`: `.topbar` de `z-index:5` → `z-index:40`.
+
+**Verificado:** captura headless online, `file://`, igual que abre el usuario → `app.js`
+corre, el menú se despliega con las 5 opciones por encima del contenido y la hamburguesa
+en "X". ✔
+
+---
+
 ## TAREA 3 — FIX: el juego no cargaba en Vercel (rutas relativas)
 
 **Síntoma:** en la web en vivo el juego mostraba solo la pantalla de inicio (sin fondo 3D) y ACELERAR no hacía nada. Local funcionaba.
