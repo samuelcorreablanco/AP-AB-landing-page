@@ -4,6 +4,14 @@
   --ink:#0c0c0c;
   --paper:#ff1f00;
   --off:#f4efe6;   /* blanco hueso / off-white para detalles */
+  --orange-lo:#ff5640;  /* naranja claro del manual */
+  --orange-hi:#cc1800;  /* naranja oscuro del manual */
+}
+
+/* Gradiente descendente del color principal (todas las páginas menos cotización) */
+body:not(.cotizador){
+  background:linear-gradient(180deg,var(--orange-lo) 0%,var(--paper) 45%,var(--orange-hi) 100%);
+  background-attachment:fixed;
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
