@@ -114,7 +114,7 @@ body.cotizador .grain{mix-blend-mode:screen}
 .price-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:1000px;margin:0 auto;width:100%}
 .price-card{border:2px solid var(--ink);padding:30px;background:rgba(0,0,0,.04)}
 .price-card .card-tag{font-family:"Space Mono",monospace;font-size:12px;font-weight:700;letter-spacing:.08em}
-.price-value{font-weight:900;font-size:clamp(28px,4vw,48px);letter-spacing:-.02em;margin:12px 0 10px}
+.price-value{font-weight:900;font-size:clamp(28px,4vw,48px);letter-spacing:-.02em;margin:12px 0 10px;color:var(--off)}
 .price-card p{font-weight:600;line-height:1.4}
 .cz-final{margin:36px auto 0;font-size:16px}
 

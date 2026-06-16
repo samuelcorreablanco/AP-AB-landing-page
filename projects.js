@@ -13,7 +13,7 @@ window.PROJECTS = [
     nombre: "Cafe Racer 93",
     tag: "Juego 3D · Synthwave",
     url: "proyectos/cafe-racer-93/index.html",
-    poster: "proyectos/cafe-racer-93/assets/_soul/cr93-bike-1.png",
+    poster: "proyectos/cafe-racer-93/assets/_soul/cr93-portada.jpg",
     desc: "Highway racer 3D en WebGL. Esquiva el tráfico, junta busters y desbloquea skins y soundtracks.",
   },
   // { nombre: "Mi App", tag: "SaaS", url: "https://ejemplo.vercel.app" },
