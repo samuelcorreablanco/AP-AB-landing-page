@@ -2,6 +2,20 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
+<!-- FIX rutas relativas en hosts con "clean URLs" (Vercel): si la URL llega SIN barra
+     final y SIN extensión (p.ej. /proyectos/cafe-racer-93), el navegador trata el último
+     segmento como archivo y rompe ./vendor y ./assets. Forzamos un <base> con la barra.
+     No se activa cuando la URL ya termina en "/" o en ".html" (local, launcher). -->
+<script>
+(function () {
+  var p = location.pathname;
+  if (!/\/$/.test(p) && !/\.[a-z0-9]+$/i.test(p)) {
+    var b = document.createElement("base");
+    b.href = p + "/";
+    document.head.appendChild(b);
+  }
+})();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <title>Cafe Racer 93 — Synthwave Highway</title>
 <style>

@@ -5,6 +5,20 @@
 
 ---
 
+## TAREA 3 — FIX: el juego no cargaba en Vercel (rutas relativas)
+
+**Síntoma:** en la web en vivo el juego mostraba solo la pantalla de inicio (sin fondo 3D) y ACELERAR no hacía nada. Local funcionaba.
+
+**Causa:** Vercel usa "clean URLs" y sirve el juego en `/proyectos/cafe-racer-93` **sin barra final**. El navegador entonces trata `cafe-racer-93` como archivo y resuelve `./vendor/three.module.js` → `/proyectos/vendor/...` (404). Sin three.js, el módulo `game.js` no corre → no hay escena 3D → ACELERAR muerto. (Confirmado: `/proyectos/vendor/three.module.js` daba 404 en vivo.)
+
+**Fix:** un `<script>` en el `<head>` de `proyectos/cafe-racer-93/index.html` que, cuando la URL llega sin barra final ni extensión, inyecta un `<base href="...cafe-racer-93/">`. No se activa en URLs con `/` o `.html` (local/launcher intactos).
+
+**Verificado:** con un servidor que imita el "clean URL" de Vercel (sirve el index en la URL sin barra), el `baseURI` queda correcto, ACELERAR arranca y el juego corre completo (moto, pista 3D, HUD, puntaje). ✔
+
+**Esto es lo más importante a desplegar:** sin este fix el juego seguirá sin cargar en la web aunque los archivos estén subidos.
+
+---
+
 ## TAREA 2 — Menú móvil (hamburguesa) arreglado
 
 **Problema reportado:** en móvil vertical los botones de la nav (arriba a la derecha) se colapsan y el ícono de 3 rayas no desplegaba nada. En horizontal/desktop sí funcionaban.
@@ -78,6 +92,16 @@ git push
 
 ---
 
+## ⚠️ Importante — probar SIEMPRE por HTTP, nunca por file://
+El juego usa **módulos ES** (`import` en `game.js`). Los navegadores los **bloquean por `file://`**
+(doble-click al .html): se ve solo la pantalla de inicio del juego y ACELERAR no hace nada.
+**Servido por HTTP (Vercel, o un servidor local) funciona perfecto** — verificado el juego completo
+corriendo (moto, HUD, puntaje, obstáculos).
+
+- Para probar local: doble-click a **`PROBAR-LOCAL.bat`** (en la raíz) → sirve todo el sitio por HTTP
+  y abre el navegador, igual que en producción. No probar abriendo los .html directamente.
+- En Vercel no hay que hacer nada: ya sirve por HTTP, así que JUGAR arranca el juego sin problema.
+
 ## Notas
-- Verificado todo con capturas (pantalla de inicio del juego, carga offline sin CDN, tarjeta de la galería). Todo OK.
+- Verificado todo con capturas (juego corriendo por HTTP, pantalla de inicio, carga offline sin CDN, tarjeta de la galería, menú móvil). Todo OK.
 - Para agregar más juegos después: copiar su carpeta a `proyectos/` y registrar una entrada nueva en `projects.js` (`{ nombre, tag, url, poster, desc }`).
