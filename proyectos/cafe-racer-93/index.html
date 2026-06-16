@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>Cafe Racer 93 — Synthwave Highway</title>
+<style>
+  :root{
+    --pink:#ff2d95; --cyan:#22e1ff; --purple:#b026ff; --yellow:#ffe85c;
+    --bg:#0a0014; --ink:#f5e9ff;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);
+    font-family:'Courier New',ui-monospace,monospace;color:var(--ink);
+    user-select:none;-webkit-user-select:none;touch-action:none;}
+  #c{display:block;position:fixed;inset:0;width:100%;height:100%;z-index:0;}
+
+  /* ---------- HUD ---------- */
+  #hud{position:fixed;inset:0;z-index:10;pointer-events:none;
+    display:flex;flex-direction:column;justify-content:space-between;
+    padding:max(14px,env(safe-area-inset-top)) 16px 16px;}
+  .hud-row{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;}
+  .stat{display:flex;flex-direction:column;line-height:1;}
+  .stat .lbl{font-size:11px;letter-spacing:.22em;color:var(--cyan);
+    text-shadow:0 0 8px var(--cyan);opacity:.85;}
+  .stat .val{font-size:clamp(20px,5vw,34px);font-weight:900;letter-spacing:.04em;
+    color:#fff;text-shadow:0 0 10px var(--pink),0 0 26px var(--purple);}
+  .stat.right{align-items:flex-end;text-align:right;}
+  .stat.right .lbl{color:var(--pink);text-shadow:0 0 8px var(--pink);}
+  .mult-row{display:inline-flex;align-items:baseline;gap:6px;margin-top:4px;}
+  .mult-row .mult-lbl{font-size:10px;letter-spacing:.22em;color:var(--yellow);
+    text-shadow:0 0 7px var(--yellow);opacity:.85;}
+  #mult{color:var(--yellow);text-shadow:0 0 10px var(--yellow),0 0 24px #ff8a00;
+    font-size:clamp(16px,4vw,26px);font-weight:900;letter-spacing:.04em;
+    display:inline-block;will-change:transform,filter;}
+  #speedwrap{align-self:flex-end;}
+  #busters-wrap{position:absolute;top:max(12px,env(safe-area-inset-top));left:50%;
+    transform:translateX(-50%);display:flex;align-items:center;gap:10px;
+    padding:6px 16px;border:2px solid var(--yellow);border-radius:999px;
+    background:rgba(20,0,32,.55);
+    box-shadow:0 0 16px rgba(255,232,92,.45),inset 0 0 10px rgba(255,232,92,.18);}
+  #busters-wrap .coin-ic{width:26px;height:26px;display:block;flex:none;
+    filter:drop-shadow(0 0 6px var(--yellow));animation:coinflip 2.4s linear infinite;}
+  .bstr-col{display:flex;flex-direction:column;align-items:center;line-height:1;}
+  .bstr-lbl{font-size:9px;font-weight:700;letter-spacing:.2em;color:var(--yellow);
+    text-shadow:0 0 6px var(--yellow);opacity:.82;margin-bottom:3px;white-space:nowrap;}
+  .bstr-col.rec .bstr-lbl{color:var(--cyan);text-shadow:0 0 6px var(--cyan);}
+  #busters{font-size:clamp(18px,4.5vw,26px);font-weight:900;color:#fff;
+    text-shadow:0 0 10px var(--yellow),0 0 22px #ff8a00;min-width:1.2em;text-align:center;
+    will-change:transform,filter;display:inline-block;}
+  .bstr-div{width:2px;height:28px;flex:none;border-radius:2px;
+    background:linear-gradient(180deg,transparent,var(--cyan),transparent);
+    box-shadow:0 0 6px var(--cyan);opacity:.7;}
+  #hud-record-hoy{font-size:clamp(14px,3.4vw,20px);font-weight:900;color:#fff;
+    text-shadow:0 0 9px var(--cyan),0 0 20px var(--purple);min-width:1.2em;text-align:center;
+    will-change:transform,filter;display:inline-block;}
+  @keyframes coinflip{0%{transform:rotateY(0);}100%{transform:rotateY(360deg);}}
+  /* micro-animación synthwave: 'salto' + intensificación del glow en cada cambio del HUD */
+  @keyframes hud-pulse{0%{transform:scale(1);filter:brightness(1);}
+    45%{transform:scale(1.15);filter:brightness(1.75);}
+    100%{transform:scale(1);filter:brightness(1);}}
+  .hud-bump{animation:hud-pulse 180ms ease-out;}
+  @media (prefers-reduced-motion:reduce){
+    #busters-wrap .coin-ic{animation:none;}
+    .hud-bump{animation:none;}}
+
+  /* ---------- Pantallas ---------- */
+  .screen{position:fixed;inset:0;z-index:20;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;text-align:center;gap:22px;padding:24px;
+    background:radial-gradient(120% 90% at 50% 30%,rgba(176,38,255,.18),rgba(10,0,20,.86) 70%);
+    backdrop-filter:blur(2px);}
+  .screen.hidden{display:none;}
+  .logo{font-size:clamp(2.6rem,9vw,6rem);font-weight:900;letter-spacing:.12em;line-height:.95;
+    background:linear-gradient(90deg,var(--pink),var(--purple) 45%,var(--cyan) 90%);
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+    filter:drop-shadow(0 0 18px rgba(255,45,149,.65));}
+  .tagline{font-size:clamp(.8rem,3vw,1.1rem);letter-spacing:.4em;color:var(--cyan);
+    text-shadow:0 0 12px var(--cyan);}
+  .btn{pointer-events:auto;cursor:pointer;border:2px solid var(--cyan);
+    background:rgba(34,225,255,.08);color:#fff;font-family:inherit;font-weight:900;
+    font-size:clamp(1.1rem,4vw,1.6rem);letter-spacing:.18em;padding:14px 38px;border-radius:6px;
+    text-shadow:0 0 10px var(--cyan);box-shadow:0 0 18px rgba(34,225,255,.5),inset 0 0 14px rgba(34,225,255,.2);
+    transition:transform .08s,box-shadow .2s;}
+  .btn:hover,.btn:active{transform:translateY(-2px) scale(1.03);
+    box-shadow:0 0 30px rgba(255,45,149,.7),inset 0 0 18px rgba(255,45,149,.3);
+    border-color:var(--pink);text-shadow:0 0 12px var(--pink);}
+  .hint{font-size:.8rem;letter-spacing:.18em;color:#c8a9ff;opacity:.85;}
+  .controls{max-width:560px;font-size:.78rem;letter-spacing:.08em;color:#d9c6ff;
+    line-height:1.7;opacity:.9;}
+  .big{font-size:clamp(2rem,7vw,3.4rem);font-weight:900;color:var(--pink);
+    text-shadow:0 0 16px var(--pink),0 0 36px var(--purple);}
+  .scoreline{font-size:1rem;letter-spacing:.2em;color:var(--cyan);text-shadow:0 0 10px var(--cyan);}
+  .scoreline b{font-size:1.6rem;color:#fff;}
+  #newbest{color:var(--yellow);text-shadow:0 0 14px var(--yellow);letter-spacing:.25em;
+    font-weight:900;animation:pulse 1s ease-in-out infinite;}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.6;transform:scale(1.06);}}
+  #loadingbar{width:min(70vw,320px);height:8px;border:1px solid var(--cyan);border-radius:4px;
+    overflow:hidden;box-shadow:0 0 12px var(--cyan);}
+  #loadingfill{height:100%;width:0%;background:linear-gradient(90deg,var(--pink),var(--cyan));
+    transition:width .2s;}
+  .scan{position:fixed;inset:0;z-index:30;pointer-events:none;opacity:.10;
+    background:repeating-linear-gradient(0deg,#000 0 1px,transparent 1px 3px);}
+  #mutebtn{position:fixed;top:max(12px,env(safe-area-inset-top));right:14px;z-index:40;
+    pointer-events:auto;cursor:pointer;font-size:20px;opacity:.7;background:none;border:none;
+    color:var(--cyan);text-shadow:0 0 8px var(--cyan);}
+  #dev{position:fixed;top:4px;left:6px;color:#0f0;font:12px monospace;display:none;z-index:50;}
+
+  /* ---------- ESCUDO INVENCIBLE (procedural) + DESTELLO VIDA EXTRA ---------- */
+  #shield{position:fixed;left:50%;top:60%;transform:translate(-50%,-50%);
+    width:min(48vw,340px);height:min(48vw,340px);border-radius:50%;
+    z-index:16;pointer-events:none;opacity:0;display:none;mix-blend-mode:screen;
+    background:radial-gradient(circle at 50% 50%,
+      rgba(34,225,255,0) 50%,rgba(34,225,255,.30) 62%,rgba(176,38,255,.34) 76%,
+      rgba(255,45,149,.22) 88%,rgba(255,45,149,0) 100%);
+    box-shadow:0 0 40px rgba(34,225,255,.65),0 0 90px rgba(176,38,255,.5),
+      inset 0 0 70px rgba(34,225,255,.38);}
+  #shield.on{display:block;
+    animation:shieldspin 2.6s linear infinite, shieldpulse 1.1s ease-in-out infinite;}
+  @keyframes shieldspin{0%{filter:hue-rotate(0deg);}100%{filter:hue-rotate(360deg);}}
+  @keyframes shieldpulse{0%,100%{transform:translate(-50%,-50%) scale(1);}
+    50%{transform:translate(-50%,-50%) scale(1.07);}}
+  #flash{position:fixed;inset:0;z-index:36;pointer-events:none;opacity:0;
+    background:radial-gradient(circle at 50% 60%,rgba(255,232,92,.55),
+      rgba(255,45,149,.35) 42%,rgba(10,0,20,0) 75%);}
+  #flash.on{animation:extralifeflash 720ms ease-out;}
+  @keyframes extralifeflash{0%{opacity:0;}12%{opacity:1;}100%{opacity:0;}}
+  @media (prefers-reduced-motion:reduce){
+    #shield.on{animation:none;}
+    #flash.on{animation:none;}}
+
+  /* ---------- TIENDA ---------- */
+  #screen-shop{overflow-y:auto;justify-content:flex-start;gap:16px;
+    padding-top:max(28px,env(safe-area-inset-top));}
+  .shop-logo{font-size:clamp(2rem,7vw,4rem);}
+  .shop-balance{font-size:clamp(.9rem,3vw,1.2rem);letter-spacing:.2em;color:var(--yellow);
+    text-shadow:0 0 12px var(--yellow);}
+  .shop-balance b{color:#fff;}
+  .shop-grid{display:flex;flex-wrap:wrap;gap:22px;justify-content:center;width:100%;max-width:920px;}
+  .shop-cat{flex:1 1 320px;max-width:420px;border:2px solid var(--purple);border-radius:10px;
+    background:rgba(20,0,32,.5);box-shadow:0 0 18px rgba(176,38,255,.4),inset 0 0 14px rgba(176,38,255,.15);
+    padding:14px;display:flex;flex-direction:column;gap:10px;}
+  .shop-banner{width:100%;height:120px;object-fit:cover;border-radius:8px;border:1px solid var(--cyan);
+    box-shadow:0 0 14px rgba(34,225,255,.4);}
+  .shop-cat-title{font-size:1.1rem;letter-spacing:.22em;color:var(--cyan);text-shadow:0 0 10px var(--cyan);
+    font-weight:900;}
+  .shop-items{display:flex;flex-direction:column;gap:8px;}
+  .shop-item{display:flex;align-items:center;justify-content:space-between;gap:10px;
+    padding:8px 12px;border:1px solid rgba(255,45,149,.5);border-radius:6px;background:rgba(255,45,149,.06);}
+  .shop-item.equipped{border-color:var(--yellow);box-shadow:0 0 10px rgba(255,232,92,.4);}
+  .si-name{font-weight:900;letter-spacing:.08em;color:#fff;text-shadow:0 0 8px var(--pink);font-size:.95rem;}
+  .si-btn{pointer-events:auto;cursor:pointer;border:2px solid var(--cyan);background:rgba(34,225,255,.1);
+    color:#fff;font-family:inherit;font-weight:900;letter-spacing:.1em;font-size:.8rem;padding:6px 14px;
+    border-radius:5px;text-shadow:0 0 8px var(--cyan);white-space:nowrap;}
+  .si-btn:hover:not(:disabled){border-color:var(--pink);text-shadow:0 0 8px var(--pink);}
+  .si-btn:disabled{opacity:.7;cursor:default;border-color:var(--yellow);color:var(--yellow);
+    text-shadow:0 0 8px var(--yellow);}
+  .si-thumb{width:58px;height:42px;flex:none;object-fit:cover;border-radius:5px;
+    border:1px solid var(--cyan);box-shadow:0 0 8px rgba(34,225,255,.4);}
+  .si-info{display:flex;flex-direction:column;gap:3px;flex:1 1 auto;min-width:0;}
+  .si-price{font-size:.68rem;letter-spacing:.1em;color:var(--yellow);
+    text-shadow:0 0 6px var(--yellow);opacity:.9;white-space:nowrap;}
+  .si-ability{font-size:.62rem;letter-spacing:.1em;color:var(--cyan);
+    text-shadow:0 0 6px var(--cyan);opacity:.85;white-space:nowrap;}
+  .si-btn:focus-visible,.btn:focus-visible{outline:2px solid var(--cyan);outline-offset:3px;}
+  .si-btn.nope{border-color:#ff2233;color:#ff7a8a;animation:pulse .3s;}
+  .btn-shop{border-color:var(--purple);text-shadow:0 0 10px var(--purple);
+    box-shadow:0 0 18px rgba(176,38,255,.5),inset 0 0 14px rgba(176,38,255,.2);}
+  /* Swatches de skin en la pantalla de inicio: seleccion rapida con preview en vivo */
+  .skin-swatches{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;
+    pointer-events:auto;margin-top:2px;}
+  .skin-sw{width:46px;height:46px;border-radius:50%;cursor:pointer;
+    border:2px solid rgba(245,233,255,.35);background:var(--sw,#22e1ff);position:relative;
+    box-shadow:0 0 12px var(--sw,#22e1ff),inset 0 0 10px rgba(0,0,0,.45);
+    transition:transform .1s,box-shadow .2s,border-color .2s;}
+  .skin-sw:hover{transform:translateY(-2px) scale(1.06);}
+  .skin-sw[aria-pressed="true"]{border-color:var(--yellow);
+    box-shadow:0 0 18px var(--sw,#22e1ff),0 0 8px var(--yellow);}
+  .skin-sw.locked::after{content:"\1F512";position:absolute;inset:0;display:flex;
+    align-items:center;justify-content:center;font-size:18px;
+    background:rgba(10,0,20,.55);border-radius:50%;}
+  .skin-sw:focus-visible{outline:2px solid var(--cyan);outline-offset:3px;}
+</style>
+</head>
+<body>
+  <canvas id="c"></canvas>
+
+  <!-- Escudo de invencibilidad (procedural CSS) + destello de 'Vida Extra' -->
+  <div id="shield" aria-hidden="true"></div>
+  <div id="flash" aria-hidden="true"></div>
+
+  <!-- HUD -->
+  <div id="hud" class="hidden">
+    <div id="busters-wrap" aria-label="busters">
+      <svg viewBox="0 0 24 24" class="coin-ic" aria-hidden="true">
+        <circle cx="12" cy="12" r="9.3" fill="#ffe85c" stroke="#ff8a00" stroke-width="2"/>
+        <path d="M12 6.1l1.55 3.14 3.45.5-2.5 2.43.59 3.44L12 14.43l-3.09 1.62.59-3.44-2.5-2.43 3.45-.5z" fill="#fff5b8"/>
+      </svg>
+      <div class="bstr-col">
+        <span class="bstr-lbl" id="l-busters">BUSTERS</span>
+        <span id="busters">0</span>
+      </div>
+      <div class="bstr-div"></div>
+      <div class="bstr-col rec">
+        <span class="bstr-lbl" id="l-record-hoy">RÉCORD HOY</span>
+        <span id="hud-record-hoy">0</span>
+      </div>
+    </div>
+    <div class="hud-row">
+      <div class="stat"><span class="lbl" id="l-score">PUNTOS</span><span class="val" id="score">0</span>
+        <span class="mult-row"><span class="mult-lbl" id="l-mult">MULT</span><span id="mult">x1.0</span></span></div>
+      <div class="stat right"><span class="lbl" id="l-best">RÉCORD</span><span class="val" id="best">0</span></div>
+    </div>
+    <div class="hud-row">
+      <div class="stat"><span class="lbl" id="l-dist">DIST</span><span class="val" id="dist">0</span></div>
+      <div class="stat right" id="speedwrap"><span class="lbl" id="l-speed">VEL</span><span class="val" id="speed">0</span></div>
+    </div>
+  </div>
+
+  <button id="mutebtn" title="sonido">♪</button>
+
+  <!-- Pantalla inicio -->
+  <div id="screen-start" class="screen">
+    <div class="logo" id="t-title">CAFE RACER 93</div>
+    <div class="tagline" id="t-sub">SYNTHWAVE HIGHWAY</div>
+    <button class="btn" id="btn-start">ACELERAR</button>
+    <button class="btn btn-shop" id="btn-shop-open">TIENDA</button>
+    <div id="skin-swatches" class="skin-swatches" aria-label="elegir skin"></div>
+    <div class="hint" id="t-starthint"></div>
+    <div class="controls" id="t-controls"></div>
+  </div>
+
+  <!-- Pantalla carga -->
+  <div id="screen-load" class="screen hidden">
+    <div class="tagline" id="t-loading">CARGANDO MOTO…</div>
+    <div id="loadingbar"><div id="loadingfill"></div></div>
+  </div>
+
+  <!-- Pantalla pausa -->
+  <div id="screen-pause" class="screen hidden">
+    <div class="big" id="t-paused">EN PAUSA</div>
+    <div class="hint" id="t-resume"></div>
+  </div>
+
+  <!-- Pantalla game over -->
+  <div id="screen-over" class="screen hidden">
+    <div class="big" id="t-over">CHOCASTE</div>
+    <div class="scoreline"><span id="t-final">PUNTOS</span> <b id="over-score">0</b></div>
+    <div class="scoreline" id="over-bustersline">BUSTERS <b id="over-busters">0</b></div>
+    <div id="newbest" class="hidden">¡NUEVO RÉCORD!</div>
+    <div class="scoreline" id="over-bestline">RÉCORD <b id="over-best">0</b></div>
+    <button class="btn" id="btn-retry">REINTENTAR</button>
+    <button class="btn btn-shop" id="btn-shop-open-2">TIENDA</button>
+    <div class="hint" id="t-retryhint"></div>
+  </div>
+
+  <!-- Pantalla TIENDA (overlay consolidado en el entry canonico index.html) -->
+  <div id="screen-shop" class="screen hidden">
+    <div class="logo shop-logo">TIENDA</div>
+    <div class="shop-balance" id="shop-balance-line">BUSTERS DISPONIBLES: <b id="shop-busters">0</b></div>
+    <div class="shop-grid">
+      <section class="shop-cat">
+        <h3 class="shop-cat-title">SKINS</h3>
+        <div class="shop-items" id="shop-skins"></div>
+      </section>
+      <section class="shop-cat">
+        <h3 class="shop-cat-title">SOUNDTRACKS</h3>
+        <div class="shop-items" id="shop-tracks"></div>
+      </section>
+    </div>
+    <button class="btn btn-shop" id="btn-shop-close">VOLVER</button>
+  </div>
+
+  <div class="scan"></div>
+  <div id="dev"></div>
+
+  <!-- 'three' r160 100% LOCAL (vendor/three.module.js): sin dependencias de CDN externo,
+       el juego carga aunque unpkg esté caído o el usuario tenga mala conexión. -->
+  <script type="importmap">
+  { "imports": {
+    "three": "./vendor/three.module.js",
+    "three/addons/": "./vendor/"
+  } }
+  </script>
+  <!-- TIENDA: logica inline (no-modulo); persiste compras/equipados en localStorage; NO toca game.js -->
+  <script>
+  (function(){
+    var KEY_TOTAL="busters_total";
+    var KEY_TRACKS="cr93_owned_tracks", KEY_SKINS="cr93_owned_skins";
+    var KEY_EQ_TRACK="cr93_track", KEY_EQ_SKIN="cr93_skin";
+    // Textos por datos: leer de window.STR si game.js/strings ya lo expuso; si no, fallback inline.
+    var T=(window.CR93_STR||{});
+    var TRACKS=[
+      {id:"music",label:T.trackBase||"NEON BASE",price:0,base:true},
+      {id:"track_01",label:T.track01||"NIGHT DRIVE",price:150},
+      {id:"track_02",label:T.track02||"MIDNIGHT CRUISE",price:250},
+      {id:"track_03",label:T.track03||"OUTRUN CHASE",price:350},
+      {id:"track_04",label:T.track04||"SUNSET DREAM",price:500},
+      {id:"track_05",label:T.track05||"TURBO BOOST",price:700}
+    ];
+    var SKINS=[
+      {id:"skin_default",label:T.skinDefault||"CROMO CLASICO",price:0,base:true,preview:"_soul/cr93-bike-1"},
+      {id:"skin_cyan",label:T.skinCyan||"AZUL ELECTRICO",price:250,preview:"_soul/cr93-bike-2",ability:T.abMoney||"MONEDAS X2"},
+      {id:"skin_aqua",label:T.skinAqua||"AQUA GRID",price:400,preview:"_soul/cr93-bike-6",ability:T.abMoney||"MONEDAS X2"},
+      {id:"skin_magenta",label:T.skinMagenta||"MAGENTA HEAT",price:600,preview:"_soul/cr93-bike-3",ability:T.abShield||"INVENCIBLE"},
+      {id:"skin_violet",label:T.skinViolet||"VIOLETA NOVA",price:750,preview:"_soul/cr93-bike-5",ability:T.abShield||"INVENCIBLE"},
+      {id:"skin_gold",label:T.skinGold||"ORO BUSTER",price:1000,preview:"_soul/cr93-bike-4",ability:T.abLife||"VIDA EXTRA"}
+    ];
+    function num(k){ var v=parseInt(localStorage.getItem(k),10); return isNaN(v)?0:v; }
+    function owned(k){ try{ var a=JSON.parse(localStorage.getItem(k)||"[]"); return Array.isArray(a)?a:[]; }catch(e){ return []; } }
+    function setOwned(k,id){ var s=owned(k); if(s.indexOf(id)<0){ s.push(id); localStorage.setItem(k,JSON.stringify(s)); } }
+    function isOwned(k,it){ return it.base || owned(k).indexOf(it.id)>=0; }
+    if(localStorage.getItem(KEY_EQ_TRACK)===null) localStorage.setItem(KEY_EQ_TRACK,"music");
+    if(localStorage.getItem(KEY_EQ_SKIN)===null) localStorage.setItem(KEY_EQ_SKIN,"skin_default");
+    var $=function(id){ return document.getElementById(id); };
+    var shop=$("screen-shop"), bal=$("shop-busters");
+    function balance(){ return num(KEY_TOTAL); }
+    function itemNode(it, ownedKey, eqKey){
+      var have=isOwned(ownedKey,it);
+      var eq=localStorage.getItem(eqKey)===it.id;
+      var d=document.createElement("div"); d.className="shop-item"+(eq?" equipped":"");
+      if(it.preview){
+        var im=document.createElement("img"); im.className="si-thumb"; im.src="./assets/"+it.preview+".png";
+        im.alt=it.label; im.loading="lazy"; im.width=58; im.height=42; im.onerror=function(){ this.style.display="none"; };
+        d.appendChild(im);
+      }
+      var info=document.createElement("div"); info.className="si-info";
+      var name=document.createElement("span"); name.className="si-name"; name.textContent=it.label; info.appendChild(name);
+      if(it.ability){ var ab=document.createElement("span"); ab.className="si-ability"; ab.textContent="\u26A1 "+it.ability; info.appendChild(ab); }
+      var price=document.createElement("span"); price.className="si-price";
+      price.textContent=it.base?(T.stFree||"GRATIS"):(have?(T.stBought||"COMPRADO"):(it.price+" \u25CE"));
+      info.appendChild(price); d.appendChild(info);
+      var btn=document.createElement("button"); btn.className="si-btn";
+      if(eq){ btn.textContent=(T.stEquipped||"EQUIPADO"); btn.disabled=true; btn.setAttribute("aria-pressed","true"); }
+      else if(have){ btn.textContent=(T.stEquip||"EQUIPAR"); btn.onclick=function(){ localStorage.setItem(eqKey,it.id); window.dispatchEvent(new CustomEvent("cr93-equip",{detail:{key:eqKey,id:it.id}})); render(); }; }
+      else {
+        var afford=balance()>=it.price;
+        btn.textContent=(T.stBuy||"COMPRAR");
+        if(!afford){ btn.disabled=true; btn.title=(T.stInsufficient||"SALDO INSUFICIENTE"); }
+        btn.onclick=function(){
+          var b=balance();
+          if(b>=it.price){ localStorage.setItem(KEY_TOTAL,String(b-it.price)); setOwned(ownedKey,it.id); localStorage.setItem(eqKey,it.id); window.dispatchEvent(new CustomEvent("cr93-equip",{detail:{key:eqKey,id:it.id,purchased:true}})); render(); }
+          else { btn.classList.add("nope"); setTimeout(function(){ btn.classList.remove("nope"); },400); }
+        }; }
+      d.appendChild(btn); return d;
+    }
+    function render(){
+      if(bal) bal.textContent=balance();
+      var st=$("shop-skins"), tr=$("shop-tracks");
+      if(st){ st.innerHTML=""; SKINS.forEach(function(it){ st.appendChild(itemNode(it,KEY_SKINS,KEY_EQ_SKIN)); }); }
+      if(tr){ tr.innerHTML=""; TRACKS.forEach(function(it){ tr.appendChild(itemNode(it,KEY_TRACKS,KEY_EQ_TRACK)); }); }
+    }
+    function openShop(){ render(); if(shop) shop.classList.remove("hidden"); window.__CR93_SHOP_OPEN=true; }
+    function closeShop(){ if(shop) shop.classList.add("hidden"); window.__CR93_SHOP_OPEN=false; }
+    window.__CR93_SHOP_OPEN=false;
+    var ob=$("btn-shop-open"), ob2=$("btn-shop-open-2"), cb=$("btn-shop-close");
+    if(ob) ob.onclick=openShop;
+    if(ob2) ob2.onclick=openShop;
+    if(cb) cb.onclick=closeShop;
+    window.addEventListener("keydown", function(e){
+      if(shop && !shop.classList.contains("hidden")){
+        if(e.code==="Escape") closeShop();
+        e.stopPropagation();
+      }
+    }, true);
+    render();
+  })();
+  </script>
+  <script type="module" src="./game.js"></script>
+</body>
+</html>

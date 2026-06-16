@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0",
+  "kind": "static",
+  "framework": "static",
+  "entrypoint": "index.html",
+  "canonical_ui": "index.html",
+  "port": 8000,
+  "command": [],
+  "env": {},
+  "install": [],
+  "how_to_test": "Abrir index.html (servido en http://127.0.0.1:8000).",
+  "competing_entrypoints": [],
+  "validated_by_architect": false,
+  "notes": "",
+  "structure": {
+    "dirs": [
+      "assets",
+      "docs_for_abbi",
+      "vendor"
+    ],
+    "key_files": [
+      "index.html"
+    ],
+    "frozen": true
+  },
+  "serve_contract": {
+    "root_serves": "index.html",
+    "static_prefix": "/static"
+  }
+}

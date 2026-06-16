@@ -4,12 +4,19 @@ const panels = document.querySelectorAll(".panel");
 const tabsNav = document.getElementById("tabs");
 const menuToggle = document.getElementById("menuToggle");
 
+function setMenu(open) {
+  tabsNav.classList.toggle("open", open);
+  menuToggle?.classList.toggle("is-open", open);
+  menuToggle?.setAttribute("aria-expanded", open ? "true" : "false");
+}
+function closeMenu() { setMenu(false); }
+
 function activate(id) {
   panels.forEach(p => p.classList.toggle("is-active", p.id === id));
   document.querySelectorAll(".tab").forEach(t =>
     t.classList.toggle("is-active", t.dataset.tab === id)
   );
-  tabsNav.classList.remove("open");
+  closeMenu();
 }
 
 tabs.forEach(el => {
@@ -17,7 +24,21 @@ tabs.forEach(el => {
   el.addEventListener("keypress", e => { if (e.key === "Enter") activate(el.dataset.tab); });
 });
 
-menuToggle?.addEventListener("click", () => tabsNav.classList.toggle("open"));
+// Cerrar el menú al tocar cualquier enlace de la nav (Servicios, Cotización, subtabs)
+tabsNav?.querySelectorAll("a").forEach(a => a.addEventListener("click", closeMenu));
+
+// Abrir/cerrar con el botón hamburguesa
+menuToggle?.addEventListener("click", (e) => {
+  e.stopPropagation();
+  setMenu(!tabsNav.classList.contains("open"));
+});
+
+// Cerrar al tocar fuera del menú o con Escape
+document.addEventListener("click", (e) => {
+  if (!tabsNav.classList.contains("open")) return;
+  if (!tabsNav.contains(e.target) && !menuToggle.contains(e.target)) closeMenu();
+});
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeMenu(); });
 
 // ===== Supabase (opcional) =====
 let supabase = null;

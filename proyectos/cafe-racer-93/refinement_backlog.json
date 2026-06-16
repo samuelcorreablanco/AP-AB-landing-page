@@ -1,0 +1,23 @@
+[
+  {
+    "axis": "launch",
+    "where": "quality:correctitud",
+    "finding": "la dura 'correctitud' no pasa el estandar de lanzamiento",
+    "suggested_fix": "arregla build/typecheck y haz pasar los tests",
+    "pass_criteria": "build_ok AND type_check_ok AND tests_pass (con tests reales)"
+  },
+  {
+    "axis": "launch",
+    "where": "quality:cobertura",
+    "finding": "la dura 'cobertura' no pasa el estandar de lanzamiento",
+    "suggested_fix": "agrega tests hasta el umbral de cobertura",
+    "pass_criteria": "coverage >= 60% (medida real)"
+  },
+  {
+    "axis": "security",
+    "where": "scanner",
+    "finding": "semgrep no instalado: no se puede certificar el lanzamiento (instala semgrep)",
+    "suggested_fix": "instala semgrep para certificar el lanzamiento",
+    "pass_criteria": "semgrep disponible y corre sin error"
+  }
+]

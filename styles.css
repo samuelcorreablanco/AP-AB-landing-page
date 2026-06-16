@@ -63,7 +63,18 @@ body{
   padding:11px 20px;
 }
 .tab.cta.is-active{background:var(--ink)}
-.menu-toggle{display:none;background:none;border:0;font-size:30px;cursor:pointer}
+/* Botón hamburguesa (3 barras dibujadas, siempre visible) */
+.menu-toggle{display:none;background:none;border:0;cursor:pointer;
+  width:46px;height:46px;padding:0;align-items:center;justify-content:center;z-index:30}
+.mt-bars{position:relative;display:block;width:26px;height:18px}
+.mt-bars span{position:absolute;left:0;width:100%;height:3px;background:var(--ink);border-radius:2px;
+  transition:transform .25s ease,opacity .2s ease}
+.mt-bars span:nth-child(1){top:0}
+.mt-bars span:nth-child(2){top:50%;transform:translateY(-50%)}
+.mt-bars span:nth-child(3){bottom:0}
+.menu-toggle.is-open .mt-bars span:nth-child(1){top:50%;transform:translateY(-50%) rotate(45deg)}
+.menu-toggle.is-open .mt-bars span:nth-child(2){opacity:0}
+.menu-toggle.is-open .mt-bars span:nth-child(3){bottom:50%;transform:translateY(50%) rotate(-45deg)}
 
 /* Sub-sección desplegable (Nosotros > Nuestros proyectos) */
 .tab-group{position:relative;display:flex;align-items:center}
@@ -169,18 +180,24 @@ body{
 /* ===== RESPONSIVE ===== */
 @media (max-width:780px){
   body{overflow-y:auto}
-  .menu-toggle{display:block}
+  .menu-toggle{display:inline-flex}
   .tabs{
-    position:absolute;top:70px;right:16px;left:16px;z-index:20;
-    flex-direction:column;background:var(--ink);padding:10px;display:none;
+    position:fixed;top:72px;right:12px;left:12px;z-index:25;
+    flex-direction:column;gap:4px;align-items:stretch;
+    background:var(--ink);padding:10px;display:none;
+    box-shadow:0 18px 40px rgba(0,0,0,.35);
   }
-  .tabs.open{display:flex}
-  .tab{color:var(--paper);width:100%;text-align:left}
-  .tab.is-active{background:rgba(255,255,255,.15)}
-  .tab.cta{clip-path:none}
-  .tab-group{flex-direction:column;align-items:flex-start;width:100%}
-  .subtabs{position:static;display:flex;background:transparent;padding:0 0 0 16px;min-width:0}
-  .subtabs a{color:var(--paper);opacity:.85;padding:8px 0}
+  .tabs.open{display:flex;animation:menudrop .2s ease both}
+  @keyframes menudrop{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+  .tab{color:var(--paper);width:100%;text-align:left;opacity:1;
+    font-size:16px;padding:15px 16px;border-radius:2px}
+  .tab:hover,.tab:active{background:rgba(255,255,255,.12)}
+  .tab.is-active{background:rgba(255,255,255,.18)}
+  .tab.cta{clip-path:none;background:var(--paper);color:var(--ink);text-align:center;margin-top:4px}
+  .tab-group{flex-direction:column;align-items:stretch;width:100%}
+  .subtabs{position:static;display:flex;background:rgba(255,255,255,.06);padding:2px 0;min-width:0;border-radius:2px}
+  .subtabs a{color:var(--paper);opacity:.9;padding:13px 16px;font-size:15px}
+  .subtabs a:active{background:rgba(255,255,255,.14)}
   .cols{grid-template-columns:1fr}
   .stats{grid-template-columns:1fr 1fr}
   .contact-grid{grid-template-columns:1fr}

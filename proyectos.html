@@ -26,11 +26,22 @@
       <span class="scroll-cue">↓ DESLIZA ↓</span>
     </div>
 
-    <div class="gallery">
+    <div class="gallery" id="galeria">
       <h2 class="gallery-title">Nuestros proyectos</h2>
       <div class="gallery-grid" id="galleryGrid"><!-- se llena con JS --></div>
     </div>
   </section>
+
+  <!-- Overlay para jugar a pantalla completa -->
+  <div class="play-overlay" id="playOverlay" hidden>
+    <div class="play-bar">
+      <span class="play-title" id="playTitle"></span>
+      <button class="play-close" id="playClose" aria-label="Cerrar">✕ CERRAR</button>
+    </div>
+    <iframe class="play-frame" id="playFrame" title="Proyecto"
+      allow="autoplay; fullscreen; gamepad; pointer-lock"
+      sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-pointer-lock"></iframe>
+  </div>
 
   <script src="projects.js"></script>
   <script>
@@ -54,16 +65,44 @@
 
     const grid = document.getElementById("galleryGrid");
     const projects = (window.PROJECTS || []);
+    const esc = (s) => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
     if (!projects.length) {
       grid.innerHTML = '<div class="project-card empty">Próximamente: aquí podrás interactuar con nuestras apps.</div>';
     } else {
-      grid.innerHTML = projects.map(p => `
+      grid.innerHTML = projects.map((p, i) => `
         <div class="project-card">
-          <div class="project-head"><b>${p.nombre || "Proyecto"}</b><span>${p.tag || ""}</span></div>
-          <iframe class="project-frame" src="${p.url}" loading="lazy"
-            sandbox="allow-scripts allow-same-origin allow-forms allow-popups" title="${p.nombre || "Proyecto"}"></iframe>
+          <div class="project-poster" ${p.poster ? `style="background-image:url('${esc(p.poster)}')"` : ""}>
+            <button class="project-play" data-i="${i}" aria-label="Jugar ${esc(p.nombre)}">▶ JUGAR</button>
+          </div>
+          <div class="project-body">
+            <div class="project-head"><b>${esc(p.nombre || "Proyecto")}</b><span>${esc(p.tag || "")}</span></div>
+            ${p.desc ? `<p class="project-desc">${esc(p.desc)}</p>` : ""}
+          </div>
         </div>
       `).join("");
+
+      const overlay = document.getElementById("playOverlay");
+      const frame = document.getElementById("playFrame");
+      const playTitle = document.getElementById("playTitle");
+
+      function openPlay(p) {
+        playTitle.textContent = p.nombre || "Proyecto";
+        frame.src = p.url;
+        overlay.hidden = false;
+        document.body.style.overflow = "hidden";
+        setTimeout(() => frame.focus(), 100);
+      }
+      function closePlay() {
+        overlay.hidden = true;
+        frame.src = "about:blank";
+        document.body.style.overflow = "";
+      }
+      grid.querySelectorAll(".project-play").forEach(btn => {
+        btn.addEventListener("click", () => openPlay(projects[+btn.dataset.i]));
+      });
+      document.getElementById("playClose").addEventListener("click", closePlay);
+      document.addEventListener("keydown", e => { if (e.key === "Escape" && !overlay.hidden) closePlay(); });
     }
   </script>
 </body>

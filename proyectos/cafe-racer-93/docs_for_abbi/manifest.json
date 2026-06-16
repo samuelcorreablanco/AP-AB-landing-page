@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.0",
+  "version": "3.0.0",
+  "generated_by": "Claude Code + Higgsfield (build 3D)",
+  "generated_at": "2026-06-15T00:00:00+00:00",
+  "handoff_target": "ABBI",
+  "handoff_status": "READY_FOR_ABBI",
+  "status": "READY_FOR_ABBI",
+  "project_name": "cafe_racer_93_3d",
+  "original_requirement": "Juego tipo highway racer con estetica synthwave e interfaz profesional, lista para produccion. Esta version es 3D REAL (WebGL/three.js): la moto del jugador es un modelo 3D generado con Higgsfield y la escena synthwave es una escena 3D, no un canvas 2D.",
+  "app_type": "frontend",
+  "architecture_style": "spa",
+  "architecture_design": "SPA web 3D 100% cliente. Render con three.js (WebGL) sobre un <canvas>. Escena synthwave PROCEDURAL: piso en grid con shader scrolleable, sol de neon con shader (scanlines), montanas de horizonte, estrellas, pilones y dashes de carril que dan sensacion de velocidad. La moto del jugador es un GLB (cargado con GLTFLoader) con fallback procedural si no carga. Loop de TIMESTEP FIJO (1/60) con RNG sembrado (mulberry32) => simulacion determinista. Fisica de carriles (lerp + lean), trafico de autos-obstaculo (pool reutilizado), colisiones AABB, scoring por distancia + casi-choques con multiplicador, dificultad creciente, y persistencia de record en localStorage. SIN backend: todo corre en el navegador. Audio: musica synthwave (loop) + SFX de choque (archivos) + beeps procedurales (WebAudio).",
+  "stack": {
+    "primary": "javascript",
+    "backend": [],
+    "frontend": ["html5", "css3", "javascript", "three.js", "webgl"],
+    "tools": ["three.js-r160"]
+  },
+  "entry_points": {
+    "launcher": null,
+    "backend": null,
+    "frontend": "index.html"
+  },
+  "runtime": {
+    "language": "static",
+    "language_version": "ES modules (navegador moderno con WebGL2)",
+    "default_port": 8791,
+    "launch_command": "python3 -m http.server 8791   # servir ESTA carpeta; los ES modules no cargan por file://"
+  },
+  "endpoints": [],
+  "files_propios": {
+    "index.html": "pagina del juego: importmap a three.js vendorizado, HUD synthwave (DOM), pantallas (inicio/carga/pausa/game-over), estilos.",
+    "game.js": "el motor del juego (escena 3D, loop de timestep fijo, input teclado/touch/gamepad, fisica, colisiones, scoring, audio).",
+    "strings.js": "TODOS los textos visibles (cambiar idioma = cambiar estos datos).",
+    "logic.js": "stub requerido por la plataforma de deploy de Higgsfield (juego solo-jugador). NO se usa al correr local en ABBI; no afecta la jugabilidad."
+  },
+  "assets": {
+    "model_3d": "assets/bike.glb (moto cafe racer synthwave; generada con Higgsfield image_to_3d; ~17MB; primer load tarda unos segundos)",
+    "audio": ["assets/music.m4a (loop synthwave)", "assets/crash.mp3 (SFX de choque)"],
+    "vendor": ["vendor/three.module.js (three.js r160)", "vendor/GLTFLoader.js", "vendor/BufferGeometryUtils.js"]
+  },
+  "deployment": {
+    "live_url": "https://tender-beam-198.higgsfield.gg/",
+    "platform": "Higgsfield games",
+    "game_id": "2bda5a8c-9b43-42c2-87e7-e48de1bfe19f",
+    "package": "zip con index.html + logic.js + assets/ + vendor/ en la RAIZ del archivo"
+  },
+  "acceptance_criteria": [
+    "Experiencia tipo highway racer en 3D: el jugador conduce una moto por una autopista nocturna, esquiva trafico y acumula puntaje por distancia, velocidad y maniobras de riesgo (casi-choques).",
+    "Estetica synthwave: paleta neon (magenta/cyan/purpura), sol retro con scanlines, grid infinito, montanas y horizonte de los 80, glow y alto contraste.",
+    "Interfaz profesional: pantalla de inicio con la moto en turntable, HUD en partida (puntos, distancia, velocidad, multiplicador, record), pantalla de game over con reinicio.",
+    "Controles responsivos: teclado (flechas/WASD), tactil (mitades izq/der) y gamepad; cambio de carril, acelerar/frenar y pausa.",
+    "Dificultad creciente: mas velocidad y densidad de trafico con el tiempo, sin bloquear todos los carriles a la vez.",
+    "Colisiones consistentes (AABB) que terminan la partida; casi-choques suben el multiplicador.",
+    "Modo infinito por distancia con reinicio rapido y persistencia del record (localStorage).",
+    "Audio synthwave: musica de fondo en loop + SFX de choque + beeps de UI.",
+    "Rendimiento estable (timestep fijo, DPR capeado, geometrias/materiales reutilizados) y responsive a distintas resoluciones.",
+    "Build lista para produccion: sin assets temporales visibles, sin textos de prueba, sin errores criticos conocidos."
+  ],
+  "notes_for_abbi": "IMPORTANTE: vendor/ es THIRD-PARTY (three.js r160, vendorizado) — NO es codigo del proyecto, no auditarlo ni reescribirlo. El codigo propio a revisar/mejorar es index.html, game.js y strings.js. logic.js es un stub de la plataforma de deploy (Higgsfield), no afecta la logica del juego. Para PROBAR: ABBI debe detectar 'static' (hay index.html en la raiz) y servir esta carpeta; el juego necesita WebGL2."
+}

@@ -1,0 +1,289 @@
+{
+ "version": 2,
+ "soul": {
+  "cr93-bike": {
+   "soul_id": "2304a57d-2c4c-4d37-94b2-c7081304591e",
+   "credits": 34.5,
+   "train_credits_measured": 25.0,
+   "ref_assets": [
+    "assets/_soul/cr93-bike-1.png",
+    "assets/_soul/cr93-bike-2.png",
+    "assets/_soul/cr93-bike-3.png",
+    "assets/_soul/cr93-bike-4.png",
+    "assets/_soul/cr93-bike-5.png",
+    "assets/_soul/cr93-bike-6.png"
+   ]
+  }
+ },
+ "generated": {
+  "skin_cyan": {
+   "hash": "e95205da656f7852320089b4281d576df9913c23fb9e994022711d4e4ed11e61",
+   "path": "assets/skin_cyan.png",
+   "model": "nano_banana_2",
+   "resolution": "1k",
+   "credits": 2.0,
+   "usd": 0.066,
+   "placeholder": false,
+   "opaque_fallback": false
+  },
+  "skin_magenta": {
+   "hash": "ed3f484d2ea79f8b6aa84fc262ac5864214cb51bfb596e60249980f115234426",
+   "path": "assets/skin_magenta.png",
+   "model": "nano_banana_2",
+   "resolution": "1k",
+   "credits": 2.0,
+   "usd": 0.066,
+   "placeholder": false,
+   "opaque_fallback": false
+  },
+  "skin_preview_01": {
+   "hash": "d1404a2f449bc46edfe771d3ef96798ae28bedc920a83d130fd0e553e802f7d7",
+   "path": "assets/skin_preview_01.png",
+   "model": "nano_banana_2",
+   "resolution": "1k",
+   "credits": 2.0,
+   "usd": 0.066,
+   "placeholder": false,
+   "opaque_fallback": false
+  },
+  "skin_preview_02": {
+   "hash": "a7ff0c605361c3da3582e9b31be0b73f43353890c41270fa6eb6b9df315b9ffa",
+   "path": "assets/skin_preview_02.png",
+   "model": "nano_banana_2",
+   "resolution": "1k",
+   "credits": 2.0,
+   "usd": 0.066,
+   "placeholder": false,
+   "opaque_fallback": false
+  },
+  "moto_hi_ref": {
+   "hash": "40929b53ad4e5530850bd95b302f08f50ff6d3d2587c52adda28579837df0ea7",
+   "path": "assets/moto_hi_ref.png",
+   "model": "nano_banana_2",
+   "resolution": "1k",
+   "credits": 2.0,
+   "usd": 0.066,
+   "placeholder": false,
+   "opaque_fallback": false
+  }
+ },
+ "counters": {
+  "credits_total": 44.5,
+  "uploads": {
+   "assets/moto_hi_ref.png": "bf58e672-bd67-4344-b0fd-1622d7d7320d"
+  }
+ },
+ "usd_per_credit": 0.033,
+ "media": {
+  "music": {
+   "hash": "49cab659d2c16fd1ab3f04c8d55e3e11907674157d043a0b49269232e807654c",
+   "modality": "audio",
+   "path": "assets/music.m4a",
+   "placeholder": false,
+   "sha256": "6eb66e79d516b67a3e9e327e843fb4af12bbcbf7d91671366a82eda1da2292b3",
+   "chain": "",
+   "checks": {},
+   "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EszAZdaSh1294hGzjAJ2uo7GAr/hf_20260615_184115_529620e9-0dd8-45a7-b5d3-59d415b03de6.m4a"
+  },
+  "track_01": {
+   "hash": "0d3bb746e2169c04de1ec371f1305f9f6c6736dd02ea88716dac39b6509cf038",
+   "modality": "audio",
+   "path": "assets/track_01.m4a",
+   "placeholder": false,
+   "sha256": "7eb5d6b0e53be0625eced066d8bcf4b2a79cbe84c59d2046050d7be51b9d78cc",
+   "chain": "",
+   "checks": {},
+   "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EszAZdaSh1294hGzjAJ2uo7GAr/hf_20260615_184117_18b47760-95ea-4951-b164-78f221cd4c8d.m4a"
+  },
+  "track_02": {
+   "hash": "b9f2ce0481d6191b820a82b462c56698113ff2e34bbfe422dd4f68e03786704a",
+   "modality": "audio",
+   "path": "assets/track_02.m4a",
+   "placeholder": false,
+   "sha256": "6235122813fd5169a336a6d499dfa90be3fe32a100cd9a934f68f49732880bff",
+   "chain": "",
+   "checks": {},
+   "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EszAZdaSh1294hGzjAJ2uo7GAr/hf_20260615_184119_66c1bbf3-b101-4df3-9855-a497c14a44fc.m4a"
+  },
+  "track_03": {
+   "hash": "76643d777bbc994127821c877d374c9c0b127fb394fd9c70bedad7fcc77d165f",
+   "modality": "audio",
+   "path": "assets/track_03.m4a",
+   "placeholder": false,
+   "sha256": "123e5ca7c55e122f97d685e6261c60c19f80f32b3b0c83a8ab5778ef37f4cd06",
+   "chain": "",
+   "checks": {},
+   "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EszAZdaSh1294hGzjAJ2uo7GAr/hf_20260615_184122_e3c63134-634d-4c99-bd73-3e43d25255af.m4a"
+  },
+  "track_04": {
+   "hash": "c8a5612854965fd421d3d4802fefd7546d996fa2b2c5b0b6f0f332f4b2756390",
+   "modality": "audio",
+   "path": "assets/track_04.m4a",
+   "placeholder": false,
+   "sha256": "c90b8086e209d639def62e73662f8e8a3903d042faa37d2f2eb34d4d629b59ea",
+   "chain": "",
+   "checks": {},
+   "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EszAZdaSh1294hGzjAJ2uo7GAr/hf_20260615_184125_2c6cee3c-9ab0-417e-adbd-adf51fc6a131.m4a"
+  },
+  "track_05": {
+   "hash": "4e864d54974e5bf3e8f2d8c48d9da3ba25c56dc8da630f53424416b10fd2ab43",
+   "modality": "audio",
+   "path": "assets/track_05.m4a",
+   "placeholder": false,
+   "sha256": "12f83b3d257c5a724ef0718a1f6999c21781ddc3122fb5292656a5f37144d055",
+   "chain": "",
+   "checks": {},
+   "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EszAZdaSh1294hGzjAJ2uo7GAr/hf_20260615_184129_94f42ede-3405-4ff7-9b10-7418e099111a.m4a"
+  },
+  "sfx_purchase": {
+   "hash": "da43e1aeb44caceb83b1f93c11ed9cf7155f94a5913629e49cdc608558c9faf4",
+   "modality": "audio",
+   "path": "assets/sfx_purchase.mp3",
+   "placeholder": false,
+   "sha256": "88bfae595606bb11a62bbea9eb403067fff9892b9bbeaa373d8eb68353a7706e",
+   "chain": "",
+   "checks": {},
+   "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EszAZdaSh1294hGzjAJ2uo7GAr/hf_20260615_185440_5f09bb04-c90d-4075-9767-90d177775f45.mp3"
+  },
+  "sfx_equip": {
+   "hash": "fbc4e65464c4ef57c960e8727601e30593743a7434bcf137993a033ae4924434",
+   "modality": "audio",
+   "path": "assets/sfx_equip.mp3",
+   "placeholder": false,
+   "sha256": "22845c9ada68ca5033fcd6fd098e52b875a9cfc7054574ae4de6122bebc4376a",
+   "chain": "",
+   "checks": {},
+   "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EszAZdaSh1294hGzjAJ2uo7GAr/hf_20260615_185442_ba8a40f6-9677-44e3-9f65-a7ee4bad48f7.mp3"
+  },
+  "moto_hi": {
+   "hash": "01aa4d8f2d16cd4c7c477fac2e4d4e14f7f39b42a7dcd4f6d86e2c1efe123ede",
+   "modality": "model3d",
+   "path": "assets/moto_hi.glb",
+   "placeholder": false,
+   "sha256": "ce5d9041c2c9a0bef1bdef5217fe9ff8777f8b421ba611f89d398f8d9ce5e8ee",
+   "chain": "a161e85eebbd4daf",
+   "checks": {
+    "meshes": 1,
+    "primitives": 1,
+    "skins": 0,
+    "animations": 0,
+    "tris": 30266,
+    "buffer_bytes": 11688584,
+    "bytes": 11690172
+   },
+   "result_url": "https://d3u0tzju9qaucj.cloudfront.net/7d051b5a-7bfe-49fe-a484-24e7b3a9458a/acede2d3-fa77-49ce-821f-19043bb59786.glb"
+  }
+ },
+ "jobs": {
+  "529620e9-0dd8-45a7-b5d3-59d415b03de6": {
+   "asset_id": "music",
+   "chain": "",
+   "step": "sonilo_music",
+   "model": "sonilo_music",
+   "status": "done",
+   "est_credits": 1.875,
+   "charged": true,
+   "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EszAZdaSh1294hGzjAJ2uo7GAr/hf_20260615_184115_529620e9-0dd8-45a7-b5d3-59d415b03de6.m4a",
+   "entry_hash": "49cab659d2c16fd1ab3f04c8d55e3e11907674157d043a0b49269232e807654c",
+   "params_hash": "5277899a01631c8e84bee0df171f90e3ca46d9aac3cc45af0c3059ea7ca351e7"
+  },
+  "18b47760-95ea-4951-b164-78f221cd4c8d": {
+   "asset_id": "track_01",
+   "chain": "",
+   "step": "sonilo_music",
+   "model": "sonilo_music",
+   "status": "done",
+   "est_credits": 1.875,
+   "charged": true,
+   "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EszAZdaSh1294hGzjAJ2uo7GAr/hf_20260615_184117_18b47760-95ea-4951-b164-78f221cd4c8d.m4a",
+   "entry_hash": "0d3bb746e2169c04de1ec371f1305f9f6c6736dd02ea88716dac39b6509cf038",
+   "params_hash": "8018e7bd7f6230d100140aad8a0ed5f2cf480d1c9b5c93321436870aeb0a986a"
+  },
+  "66c1bbf3-b101-4df3-9855-a497c14a44fc": {
+   "asset_id": "track_02",
+   "chain": "",
+   "step": "sonilo_music",
+   "model": "sonilo_music",
+   "status": "done",
+   "est_credits": 1.875,
+   "charged": true,
+   "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EszAZdaSh1294hGzjAJ2uo7GAr/hf_20260615_184119_66c1bbf3-b101-4df3-9855-a497c14a44fc.m4a",
+   "entry_hash": "b9f2ce0481d6191b820a82b462c56698113ff2e34bbfe422dd4f68e03786704a",
+   "params_hash": "810aff05cba5599661b26f97458ab341370439199cfe2757138d1ffd72b09471"
+  },
+  "e3c63134-634d-4c99-bd73-3e43d25255af": {
+   "asset_id": "track_03",
+   "chain": "",
+   "step": "sonilo_music",
+   "model": "sonilo_music",
+   "status": "done",
+   "est_credits": 1.875,
+   "charged": true,
+   "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EszAZdaSh1294hGzjAJ2uo7GAr/hf_20260615_184122_e3c63134-634d-4c99-bd73-3e43d25255af.m4a",
+   "entry_hash": "76643d777bbc994127821c877d374c9c0b127fb394fd9c70bedad7fcc77d165f",
+   "params_hash": "71cde419a3d523a7168e1b69fb2bf0e4b9c98e17c569994bbce32b51d63b6a4d"
+  },
+  "2c6cee3c-9ab0-417e-adbd-adf51fc6a131": {
+   "asset_id": "track_04",
+   "chain": "",
+   "step": "sonilo_music",
+   "model": "sonilo_music",
+   "status": "done",
+   "est_credits": 1.875,
+   "charged": true,
+   "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EszAZdaSh1294hGzjAJ2uo7GAr/hf_20260615_184125_2c6cee3c-9ab0-417e-adbd-adf51fc6a131.m4a",
+   "entry_hash": "c8a5612854965fd421d3d4802fefd7546d996fa2b2c5b0b6f0f332f4b2756390",
+   "params_hash": "e95c0036cdf03af57011dc4250c8b5b3e8fb9604fc77cbb70416ac2031755fb2"
+  },
+  "94f42ede-3405-4ff7-9b10-7418e099111a": {
+   "asset_id": "track_05",
+   "chain": "",
+   "step": "sonilo_music",
+   "model": "sonilo_music",
+   "status": "done",
+   "est_credits": 1.875,
+   "charged": true,
+   "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EszAZdaSh1294hGzjAJ2uo7GAr/hf_20260615_184129_94f42ede-3405-4ff7-9b10-7418e099111a.m4a",
+   "entry_hash": "4e864d54974e5bf3e8f2d8c48d9da3ba25c56dc8da630f53424416b10fd2ab43",
+   "params_hash": "319a503f5a91311e5f1bc8af89740f436377215481f8e0765df7e7d5872a4f06"
+  },
+  "5f09bb04-c90d-4075-9767-90d177775f45": {
+   "asset_id": "sfx_purchase",
+   "chain": "",
+   "step": "mirelo_text_to_audio",
+   "model": "mirelo_text_to_audio",
+   "status": "done",
+   "est_credits": 1.0,
+   "charged": true,
+   "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EszAZdaSh1294hGzjAJ2uo7GAr/hf_20260615_185440_5f09bb04-c90d-4075-9767-90d177775f45.mp3",
+   "entry_hash": "da43e1aeb44caceb83b1f93c11ed9cf7155f94a5913629e49cdc608558c9faf4",
+   "params_hash": "4b1019086595bfeccb7399866262a13ae727fcde65db3f29e3601958164e32e7"
+  },
+  "ba8a40f6-9677-44e3-9f65-a7ee4bad48f7": {
+   "asset_id": "sfx_equip",
+   "chain": "",
+   "step": "mirelo_text_to_audio",
+   "model": "mirelo_text_to_audio",
+   "status": "done",
+   "est_credits": 1.0,
+   "charged": true,
+   "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EszAZdaSh1294hGzjAJ2uo7GAr/hf_20260615_185442_ba8a40f6-9677-44e3-9f65-a7ee4bad48f7.mp3",
+   "entry_hash": "fbc4e65464c4ef57c960e8727601e30593743a7434bcf137993a033ae4924434",
+   "params_hash": "af7162fee623498d051d3b53fb6f86a33646d7292749f9c6e86da8b34e1e6e11"
+  },
+  "f26ec9fb-9ce6-43ae-a3c0-9c6f883cda3c": {
+   "asset_id": "moto_hi",
+   "chain": "a161e85eebbd4daf",
+   "step": "image_to_3d",
+   "model": "image_to_3d",
+   "status": "done",
+   "est_credits": 30.0,
+   "charged": true,
+   "result_url": "https://d3u0tzju9qaucj.cloudfront.net/7d051b5a-7bfe-49fe-a484-24e7b3a9458a/acede2d3-fa77-49ce-821f-19043bb59786.glb",
+   "entry_hash": "01aa4d8f2d16cd4c7c477fac2e4d4e14f7f39b42a7dcd4f6d86e2c1efe123ede",
+   "params_hash": "65f5e3463ed5294468525196e1b857ebcc75ad89a404bc4750029e516585ef6d"
+  }
+ },
+ "chains": {},
+ "postprocess": {}
+}

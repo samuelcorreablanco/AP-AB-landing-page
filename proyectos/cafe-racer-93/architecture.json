@@ -1,0 +1,153 @@
+{
+  "schema_version": "1.0",
+  "asvs_level": "L1",
+  "capabilities": [
+    {
+      "id": "payments",
+      "kind": "payments",
+      "applies": false,
+      "justification": "La tienda usa el PUNTAJE acumulado como moneda virtual; no se cobra dinero real. Restriccion explicita: '100% frontend usando localStorage', sin checkout ni pasarela.",
+      "status": "declared",
+      "detected": null,
+      "high_risk": true
+    },
+    {
+      "id": "auth",
+      "kind": "auth",
+      "applies": false,
+      "justification": "Juego SPA mono-jugador sin cuentas ni sesiones; el estado de compras es local al navegador, no hay login ni roles.",
+      "status": "declared",
+      "detected": null,
+      "high_risk": true
+    },
+    {
+      "id": "database",
+      "kind": "database",
+      "applies": false,
+      "justification": "Restriccion dura: 'No se debe crear una base de datos ni backend'. La persistencia de items comprados y saldo es localStorage, no persistencia estructurada en servidor.",
+      "status": "declared",
+      "detected": null,
+      "high_risk": true
+    },
+    {
+      "id": "realtime",
+      "kind": "realtime",
+      "applies": false,
+      "justification": "No hay multijugador ni presencia; el loop de juego es local de timestep fijo. Nada del pedido requiere websockets ni live.",
+      "status": "declared",
+      "detected": null,
+      "high_risk": false
+    },
+    {
+      "id": "storage",
+      "kind": "storage",
+      "applies": false,
+      "justification": "Los renders/imagenes promocionales nuevos son assets estaticos servidos desde la carpeta (assets/), no blobs subidos ni gestionados en un servicio de almacenamiento.",
+      "status": "declared",
+      "detected": null,
+      "high_risk": false
+    },
+    {
+      "id": "uploads",
+      "kind": "uploads",
+      "applies": false,
+      "justification": "El usuario no sube archivos: solo recolecta monedas y compra cosmeticos con puntos. Sin UI de upload.",
+      "status": "declared",
+      "detected": null,
+      "high_risk": false
+    },
+    {
+      "id": "email",
+      "kind": "email",
+      "applies": false,
+      "justification": "No hay verificacion, recibos ni avisos; las compras son virtuales y locales, sin notificaciones por correo.",
+      "status": "declared",
+      "detected": null,
+      "high_risk": false
+    },
+    {
+      "id": "search",
+      "kind": "search",
+      "applies": false,
+      "justification": "La tienda lista 5-6 soundtracks/skins fijos; no se requiere busqueda ni filtrado full-text.",
+      "status": "declared",
+      "detected": null,
+      "high_risk": false
+    },
+    {
+      "id": "notifications",
+      "kind": "notifications",
+      "applies": false,
+      "justification": "No hay push/SMS/webhooks; la retroalimentacion de compra y recoleccion es in-game (HUD), no un sistema de notificaciones.",
+      "status": "declared",
+      "detected": null,
+      "high_risk": false
+    },
+    {
+      "id": "scheduled_jobs",
+      "kind": "scheduled_jobs",
+      "applies": false,
+      "justification": "El spawn de rampas/monedas es procedural dentro del loop de render del cliente, no jobs de background ni cron.",
+      "status": "declared",
+      "detected": null,
+      "high_risk": false
+    },
+    {
+      "id": "i18n",
+      "kind": "i18n",
+      "applies": false,
+      "justification": "Existe strings.js (i18n por datos) en el proyecto, pero el pedido actual (rampas, monedas azules, tienda) no agrega idiomas/locales nuevos; fuera de alcance de esta ronda.",
+      "status": "declared",
+      "detected": null,
+      "high_risk": false
+    },
+    {
+      "id": "analytics",
+      "kind": "analytics",
+      "applies": false,
+      "justification": "No se piden metricas de uso ni dashboards; el contador de monedas/puntaje es mecanica de juego, no analitica de producto.",
+      "status": "declared",
+      "detected": null,
+      "high_risk": false
+    },
+    {
+      "id": "hosting",
+      "kind": "hosting",
+      "applies": true,
+      "justification": "Es una SPA estatica que debe servirse (los ES modules no cargan por file://). El deploy existente es Higgsfield games / static hosting; aplica siempre que se lanza la app.",
+      "provider": "higgsfield-games",
+      "data_class": "internal",
+      "connection": "manual_guided",
+      "env_keys": [],
+      "status": "declared",
+      "detected": null,
+      "high_risk": false
+    },
+    {
+      "id": "client-persistence-localstorage",
+      "kind": "otro",
+      "applies": true,
+      "justification": "El pedido exige persistir saldo de puntos e items comprados (skins/soundtracks) en localStorage del navegador. No encaja en 'database' (sin backend por restriccion); es persistencia 100% cliente -> guia manual.",
+      "data_class": "internal",
+      "connection": "manual_guided",
+      "env_keys": [],
+      "status": "declared",
+      "detected": null,
+      "high_risk": false
+    },
+    {
+      "id": "media-generation-renders",
+      "kind": "otro",
+      "applies": true,
+      "justification": "Se piden al menos dos renders/imagenes promocionales nuevas con estetica synthwave para la tienda/cosmeticos. Es generacion de medios (pipeline Higgsfield/assets), no entra en la taxonomia web -> tab de guia manual; gasto de creditos requiere OK explicito del dueno.",
+      "provider": "higgsfield-media",
+      "data_class": "internal",
+      "connection": "manual_guided",
+      "env_keys": [],
+      "status": "declared",
+      "detected": null,
+      "high_risk": false
+    }
+  ],
+  "highrisk_confirmed": false
+}

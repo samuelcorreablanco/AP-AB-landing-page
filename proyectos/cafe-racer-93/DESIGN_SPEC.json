@@ -1,0 +1,19 @@
+{
+ "version": 1,
+ "palette": {
+  "pink": "#ff2d95",
+  "cyan": "#22e1ff",
+  "purple": "#b026ff",
+  "yellow": "#ffe85c",
+  "bg": "#0a0014",
+  "ink": "#f5e9ff"
+ },
+ "type": {
+  "display": "900-weight gradient wordmark (CAFE RACER 93), used only on screens",
+  "body": "Courier New / ui-monospace",
+  "utility": "monospace caps con letter-spacing para HUD/labels"
+ },
+ "layout": "canvas WebGL a pantalla completa con HUD flotante en esquinas + contador central de busters",
+ "signature": "contador de BUSTERS centrado arriba con moneda SVG que gira (coinflip) y borde de neón amarillo",
+ "style_anchor": "1993 synthwave neon highway, magenta and cyan grid, retro CRT glow"
+}

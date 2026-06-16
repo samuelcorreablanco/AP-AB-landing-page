@@ -9,7 +9,12 @@
 //  Deja el array vacío para mostrar el estado "Próximamente".
 // ============================================================
 window.PROJECTS = [
-  // { nombre: "RapidBite", tag: "Delivery", url: "https://ejemplo-1.vercel.app" },
-  // { nombre: "ABBI Demo", tag: "Análisis de código", url: "https://ejemplo-2.vercel.app" },
-  // { nombre: "Mi App", tag: "SaaS", url: "https://ejemplo-3.vercel.app" },
+  {
+    nombre: "Cafe Racer 93",
+    tag: "Juego 3D · Synthwave",
+    url: "proyectos/cafe-racer-93/index.html",
+    poster: "proyectos/cafe-racer-93/assets/_soul/cr93-bike-1.png",
+    desc: "Highway racer 3D en WebGL. Esquiva el tráfico, junta busters y desbloquea skins y soundtracks.",
+  },
+  // { nombre: "Mi App", tag: "SaaS", url: "https://ejemplo.vercel.app" },
 ];

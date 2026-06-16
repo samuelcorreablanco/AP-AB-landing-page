@@ -1,0 +1,138 @@
+{
+ "version": 1,
+ "assets": [
+  {
+   "id": "skin_cyan",
+   "category": "ilustracion",
+   "description": "cafe racer motorcycle render with electric cyan neon bodywork and glowing blue rims, 3/4 front view, dark synthwave studio background with magenta grid floor, retro 1993 CRT glow, single complete bike centered",
+   "aspect": "4:3",
+   "resolution": "1k",
+   "transparent": false,
+   "consistency_key": "cr93-bike",
+   "reference_asset": "",
+   "alt": "Skin Cyan Pulse de la moto"
+  },
+  {
+   "id": "skin_magenta",
+   "category": "ilustracion",
+   "description": "cafe racer motorcycle render with hot magenta neon bodywork and glowing pink rims, 3/4 front view, dark synthwave studio background with cyan grid floor, retro 1993 CRT glow, single complete bike centered",
+   "aspect": "4:3",
+   "resolution": "1k",
+   "transparent": false,
+   "consistency_key": "cr93-bike",
+   "reference_asset": "",
+   "alt": "Skin Magenta Heat de la moto"
+  },
+  {
+   "id": "music",
+   "category": "musica",
+   "description": "musica synthwave de fondo energica para conduccion nocturna, sintetizadores retro 80s, bajo arpegiado, bombo constante, ambiente neon relajado tipo base por defecto",
+   "duracion_s": 30,
+   "alt": "Soundtrack base Neon"
+  },
+  {
+   "id": "track_01",
+   "category": "musica",
+   "description": "synthwave nocturno tranquilo de carretera, pads atmosfericos amplios, arpegios lentos, sensacion de manejo nocturno relajado",
+   "duracion_s": 30,
+   "alt": "Soundtrack Night Drive"
+  },
+  {
+   "id": "track_02",
+   "category": "musica",
+   "description": "synthwave de medianoche con groove medio, bajo pulsante, lead brillante, vibra de crucero urbano neon",
+   "duracion_s": 30,
+   "alt": "Soundtrack Midnight Cruise"
+  },
+  {
+   "id": "track_03",
+   "category": "musica",
+   "description": "outrun darksynth agresivo y veloz, bombo cuatro por cuatro fuerte, arpegios rapidos, persecucion de alta velocidad",
+   "duracion_s": 30,
+   "alt": "Soundtrack Outrun Chase"
+  },
+  {
+   "id": "track_04",
+   "category": "musica",
+   "description": "synthwave melancolico de atardecer, acordes calidos, lead saxo sintetico, tempo medio dreamy",
+   "duracion_s": 30,
+   "alt": "Soundtrack Sunset Dream"
+  },
+  {
+   "id": "track_05",
+   "category": "musica",
+   "description": "synthwave turbo energetico, arpegios ultra rapidos, bajo distorsionado, climax de aceleracion maxima",
+   "duracion_s": 30,
+   "alt": "Soundtrack Turbo Boost"
+  },
+  {
+   "id": "skin_preview_01",
+   "category": "producto",
+   "description": "Cafe racer motorcycle from CAFE RACER 93 painted in a glowing cyan neon livery with chrome accents, 3/4 front view, framed as a product card on a dark synthwave studio backdrop with magenta rim light, retro 1993 outrun aesthetic, CRT glow",
+   "aspect": "4:3",
+   "resolution": "1k",
+   "transparent": false,
+   "consistency_key": "cr93-bike",
+   "reference_asset": "",
+   "alt": "Vista previa de la moto con librea cyan neon"
+  },
+  {
+   "id": "skin_preview_02",
+   "category": "producto",
+   "description": "Cafe racer motorcycle from CAFE RACER 93 painted in a hot magenta and pink neon livery with chrome accents, 3/4 front view, framed as a product card on a dark synthwave studio backdrop with cyan rim light, retro 1993 outrun aesthetic, CRT glow",
+   "aspect": "4:3",
+   "resolution": "1k",
+   "transparent": false,
+   "consistency_key": "cr93-bike",
+   "reference_asset": "",
+   "alt": "Vista previa de la moto con librea magenta neon"
+  },
+  {
+   "id": "sfx_purchase",
+   "category": "sfx",
+   "description": "short bright synthwave purchase confirmation chime, retro 80s arcade coin/cash success with neon shimmer, upbeat, about 1.5 seconds",
+   "aspect": "1:1",
+   "resolution": "1k",
+   "transparent": false,
+   "consistency_key": "",
+   "reference_asset": "",
+   "alt": "sonido de compra exitosa"
+  },
+  {
+   "id": "sfx_equip",
+   "category": "sfx",
+   "description": "short retro synth power-up swoosh used when equipping an item, neon whoosh with a confident upward sweep, about 1.2 seconds",
+   "aspect": "1:1",
+   "resolution": "1k",
+   "transparent": false,
+   "consistency_key": "",
+   "reference_asset": "",
+   "alt": "sonido de equipar"
+  },
+  {
+   "id": "moto_hi_ref",
+   "category": "ilustracion",
+   "model": "nano_banana_2",
+   "description": "Moto cafe racer synthwave vista de perfil tres-cuartos, una sola moto completa y centrada en cuadro: cuerpo cromado con tanque redondeado magenta y cyan, faro delantero amarillo neon, asiento bajo oscuro, ruedas de radios negros con aro neon, lineas limpias y legibles. Fondo neutro liso oscuro, iluminacion de neon retro 1993, sin humo ni particulas ni elementos abstractos ni recortes flotantes.",
+   "aspect": "4:3",
+   "resolution": "1k",
+   "transparent": false,
+   "consistency_key": "cr93-moto",
+   "reference_asset": "",
+   "alt": "Render de referencia de la moto cafe racer synthwave"
+  },
+  {
+   "id": "moto_hi",
+   "category": "modelo3d",
+   "description": "Modelo 3D de la moto cafe racer del juego synthwave, GLB OPTIMIZADO low-poly con textura embebida y sin micro-detalle (respeta el limite de MB), cromo magenta/cyan y faro amarillo, objeto unico y solido listo para instanciar en escena WebGL en tercera persona. Calca la forma de la ilustracion ancla.",
+   "aspect": "1:1",
+   "resolution": "1k",
+   "transparent": false,
+   "fuente_3d": "imagen",
+   "rigged": false,
+   "consistency_key": "cr93-moto",
+   "reference_asset": "moto_hi_ref",
+   "alt": "Moto cafe racer synthwave en 3D"
+  }
+ ]
+}
